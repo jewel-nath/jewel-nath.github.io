@@ -1,0 +1,124 @@
+---
+import LidarScan from '../components/LidarScan.astro';
+import WorkEntry from '../components/WorkEntry.astro';
+import Base from '../layouts/Base.astro';
+import { buildLog, earlierRobots, profiles, projects, roles, site, skills } from '../data/site';
+---
+
+<Base>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header wrap">
+    <a class="wordmark" href="/">jewelnath.dev</a>
+    <nav aria-label="Sections">
+      <ul>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#build-log">Build log</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero wrap" aria-labelledby="name">
+      <div>
+        <h1 id="name">{site.name}</h1>
+        <p class="tagline">
+          {
+            site.headline.map((part, i) => (
+              <>
+                {i > 0 && <span class="tagline__sep" aria-hidden="true"> / </span>}
+                <span class="tagline__part">{part}</span>
+              </>
+            ))
+          }
+        </p>
+        <p class="lead">{site.lead}</p>
+        <ul class="link-row">
+          {profiles.map((profile) => <li><a href={profile.href}>{profile.label}</a></li>)}
+        </ul>
+      </div>
+      <LidarScan />
+    </section>
+
+    <section class="roles wrap" aria-labelledby="roles-title">
+      <h2 id="roles-title" class="visually-hidden">Where I work now</h2>
+      {
+        roles.map((role) => (
+          <div class="role">
+            <h3>{role.place}</h3>
+            <p>
+              <span class="role__title">{role.title}</span>
+              <br />
+              <span class="role__when">{role.when}</span>
+              {role.earlier && (
+                <>
+                  <br />
+                  <span class="role__when">{role.earlier}</span>
+                </>
+              )}
+            </p>
+            <p>{role.text}</p>
+          </div>
+        ))
+      }
+    </section>
+
+    <section id="work" class="section wrap" aria-labelledby="work-title">
+      <h2 id="work-title">Work</h2>
+      {projects.map((project) => <WorkEntry project={project} />)}
+
+      <div class="earlier">
+        <h3>Earlier robots</h3>
+        <ul>
+          {
+            earlierRobots.map((robot) => (
+              <li>
+                <h4>
+                  {robot.name}
+                  <span class="earlier__years">{robot.years}</span>
+                </h4>
+                <p>{robot.text}</p>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="earlier__code">Their code is on <a href={profiles[1].href}>my GitHub</a>.</p>
+      </div>
+    </section>
+
+    <section id="skills" class="section wrap" aria-labelledby="skills-title">
+      <h2 id="skills-title">Skills</h2>
+      <p class="section__intro">Each one with the work that shows it.</p>
+      <dl class="skills">
+        {
+          skills.map((skill) => (
+            <div class="skill">
+              <dt>{skill.area}</dt>
+              <dd>{skill.skills}</dd>
+              <dd class="skill__shown">
+                Shown in {skill.href ? <a href={skill.href}>{skill.shownIn}</a> : skill.shownIn}
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+    </section>
+
+    <section id="build-log" class="section build-log wrap" aria-labelledby="build-log-title">
+      <h2 id="build-log-title">Build log</h2>
+      <p>{buildLog.text}</p>
+      <ul class="link-row">
+        {buildLog.links.map((link) => <li><a href={link.href}>{link.label}</a></li>)}
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer wrap">
+    <p>{site.name}, {site.location}. The easiest way to reach me is <a href={profiles[0].href}>LinkedIn</a>.</p>
+    <ul>
+      {profiles.map((profile) => <li><a href={profile.href}>{profile.label}</a></li>)}
+      <li><a href={site.source}>This site's code</a></li>
+    </ul>
+  </footer>
+</Base>

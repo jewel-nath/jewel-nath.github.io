@@ -1,90 +1,38 @@
-# Personal Portfolio
+# jewelnath.dev
 
-A modern, terminal-inspired portfolio website with sleek animations and blueprint aesthetics.
+The source of [jewelnath.dev](https://jewelnath.dev), my portfolio: AI agents,
+automation and the robots I build.
 
-## Live Site
+It is a static site made with [Astro](https://astro.build) and deployed on
+Vercel. For now it is a single page; more pages will follow.
 
-Visit my portfolio at [jewelnath.netlify.app](https://jewelnath.netlify.app/)
+## Run it
 
-## About
+Needs Node.js 22.12 or newer.
 
-This is my personal portfolio website featuring a terminal/blueprint themed design with smooth floating animations. The site showcases my projects, experience, and skills in a clean, modern interface inspired by developer tools and command-line aesthetics.
-
-## Tech Stack
-
-- **Frontend Framework:** React 18
-- **Animations:** Framer Motion
-- **Styling:** Tailwind CSS, Styled Components
-- **Build Tool:** Vite
-- **Form Handling:** EmailJS
-- **Routing:** React Router DOM
-
-## Features
-
-- Terminal-inspired UI with blueprint aesthetics
-- Floating SVG animations (robots, code symbols, chips, circuit nodes)
-- Typing effect animations
-- Responsive design for all devices
-- Smooth page transitions with Framer Motion
-- Bento grid hero layout
-- Blueprint-style project showcase
-- Terminal-style tech stack display
-- Interactive contact form
-- Experience timeline
-- Testimonials section
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js (v14 or higher)
-- npm or yarn
-
-### Installation
-
-1. Clone the repository:
-```bash
-git clone https://github.com/devjewel01/devjewel01.github.io.git
-cd devjewel01.github.io
-```
-
-2. Install dependencies:
 ```bash
 npm install
-```
-
-3. Run the development server:
-```bash
 npm run dev
 ```
 
-4. Open your browser and navigate to `http://localhost:5173`
+The site runs at http://localhost:4321. `npm run build` writes the static
+site to `dist/`, and `npm run preview` serves that build.
 
-## Available Scripts
+## Where things are
 
-- `npm run dev` - Start the development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview the production build
-- `npm run lint` - Run ESLint to check code quality
+| Path | What it holds |
+|---|---|
+| `src/data/site.ts` | Every word on the page: links, roles, projects and skills |
+| `src/pages/index.astro` | The page |
+| `src/components/LidarScan.astro` | The LiDAR scan at the top, drawn on a canvas |
+| `src/components/WorkEntry.astro` | One project in the Work section |
+| `src/layouts/Base.astro` | The page's head: title, description, fonts and link previews |
+| `src/styles/global.css` | Colours, type and layout |
+| `src/assets/` | Photos, resized to AVIF and WebP at build time |
+| `public/og.png` | The picture shown when the site is linked on LinkedIn or X |
+| `scripts/og-image.html` | The source of `public/og.png`; how to render it is at its top |
 
-## Build & Deploy
+## Licence
 
-Build the project for production:
-
-```bash
-npm run build
-```
-
-The built files will be in the `dist` directory, ready to be deployed to Netlify or any static hosting service.
-
-## Resume
-
-View my resume at [jewelnath.netlify.app/resume.pdf](https://jewelnath.netlify.app/resume.pdf)
-
-## License
-
-This project is open source and available for reference. Please do not copy directly for your own portfolio.
-
----
-
-Built by Jewel Nath
+The code is free to read and learn from. The photos, the text and the
+picture in `public/og.png` are mine: please don't reuse them.

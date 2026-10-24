@@ -20,6 +20,12 @@ export const site = {
   source: 'https://github.com/jewel-nath/jewel-nath.github.io',
 };
 
+// The public copy of the CV: no phone number, and Orbitax's work in general words.
+export const cv = {
+  href: '/jewel-nath-cv.pdf',
+  fileName: 'Jewel-Nath-CV.pdf',
+};
+
 export const profiles: Link[] = [
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/jewelnath/' },
   { label: 'GitHub', href: 'https://github.com/jewel-nath' },

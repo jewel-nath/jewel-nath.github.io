@@ -186,14 +186,52 @@ a:hover {
   line-height: 1.3;
 }
 
+.cv-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.5rem;
+  margin: 2rem 0 0;
+  font-weight: 600;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.875rem;
+  padding: 0.6rem 1.4rem;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--paper);
+  text-decoration: none;
+}
+
+.button:hover {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--signal) 55%, transparent);
+}
+
 .link-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem 1.5rem;
+  gap: 0.25rem 1.5rem;
   margin: 2rem 0 0;
   padding: 0;
   list-style: none;
   font-weight: 600;
+}
+
+.cv-actions + .link-row {
+  margin-top: 1.25rem;
+}
+
+/* Bigger tap targets for the small text links. */
+.link-row a,
+.site-header nav a,
+.site-footer a {
+  display: inline-block;
+  min-width: 1.5rem;
+  padding-block: 0.35rem;
+  text-align: center;
 }
 
 /* Where I work now */
@@ -362,9 +400,13 @@ a:hover {
   .hero {
     grid-template-columns: minmax(0, 1fr);
   }
+
+  .hero .scan {
+    max-width: 32rem;
+  }
 }
 
-@media (max-width: 48rem) {
+@media (max-width: 40rem) {
   .roles,
   .skills,
   .earlier ul {

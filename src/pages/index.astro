@@ -2,7 +2,7 @@
 import LidarScan from '../components/LidarScan.astro';
 import WorkEntry from '../components/WorkEntry.astro';
 import Base from '../layouts/Base.astro';
-import { buildLog, earlierRobots, profiles, projects, roles, site, skills } from '../data/site';
+import { buildLog, cv, earlierRobots, profiles, projects, roles, site, skills } from '../data/site';
 ---
 
 <Base>
@@ -15,6 +15,7 @@ import { buildLog, earlierRobots, profiles, projects, roles, site, skills } from
         <li><a href="#work">Work</a></li>
         <li><a href="#skills">Skills</a></li>
         <li><a href="#build-log">Build log</a></li>
+        <li><a href={cv.href}>CV</a></li>
       </ul>
     </nav>
   </header>
@@ -34,6 +35,10 @@ import { buildLog, earlierRobots, profiles, projects, roles, site, skills } from
           }
         </p>
         <p class="lead">{site.lead}</p>
+        <div class="cv-actions">
+          <a class="button" href={cv.href}>View CV</a>
+          <a href={cv.href} download={cv.fileName}>Download PDF</a>
+        </div>
         <ul class="link-row">
           {profiles.map((profile) => <li><a href={profile.href}>{profile.label}</a></li>)}
         </ul>
@@ -117,6 +122,7 @@ import { buildLog, earlierRobots, profiles, projects, roles, site, skills } from
   <footer class="site-footer wrap">
     <p>{site.name}, {site.location}. The easiest way to reach me is <a href={profiles[0].href}>LinkedIn</a>.</p>
     <ul>
+      <li><a href={cv.href}>CV</a></li>
       {profiles.map((profile) => <li><a href={profile.href}>{profile.label}</a></li>)}
       <li><a href={site.source}>This site's code</a></li>
     </ul>

@@ -29,10 +29,11 @@ site to `dist/`, and `npm run preview` serves that build.
 | `src/layouts/Base.astro` | The page's head: title, description, fonts and link previews |
 | `src/styles/global.css` | Colours, type and layout |
 | `src/assets/` | Photos, resized to AVIF and WebP at build time |
+| `public/jewel-nath-cv.pdf` | My CV, to view or download from the page: the public copy, without a phone number |
 | `public/og.png` | The picture shown when the site is linked on LinkedIn or X |
 | `scripts/og-image.html` | The source of `public/og.png`; how to render it is at its top |
 
 ## Licence
 
-The code is free to read and learn from. The photos, the text and the
-picture in `public/og.png` are mine: please don't reuse them.
+The code is free to read and learn from. The photos, the text, the CV and
+the picture in `public/og.png` are mine: please don't reuse them.

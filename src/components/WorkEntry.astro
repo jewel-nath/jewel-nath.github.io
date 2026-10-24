@@ -82,11 +82,9 @@ const { project } = Astro.props;
     list-style: none;
   }
 
-  .entry__links li + li {
-    margin-top: 0.3rem;
-  }
-
   .entry__links a {
+    display: inline-block;
+    padding-block: 0.3rem;
     color: var(--ink);
     font-weight: 600;
   }
@@ -164,11 +162,7 @@ const { project } = Astro.props;
     .entry__links {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.2rem 1rem;
-    }
-
-    .entry__links li + li {
-      margin-top: 0;
+      gap: 0 1rem;
     }
   }
 </style>

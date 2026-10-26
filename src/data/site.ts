@@ -1,6 +1,6 @@
 // Every word on the page lives here, so the page and its parts only lay it out.
 import type { ImageMetadata } from 'astro';
-import orbibotV1 from '../assets/orbibot-v1-2026-08-04-final-side.jpg';
+import orbibotV1 from '../assets/orbibot-v1-2025-09-24-pi5-build-front.jpg';
 import robotNiko from '../assets/robot-niko-2022-11-29-full-robot.jpg';
 
 export interface Link {
@@ -13,7 +13,7 @@ export const site = {
   url: 'https://jewelnath.dev',
   title: 'Jewel Nath: AI agents, automation and robots',
   description:
-    'I build AI agents and automation for real products, and put them on robots I build myself. Software engineer at Orbitax, founder and AI engineer at RoboAI, builder of OrbiBot.',
+    'I build AI agents and automation for real products, and put them on robots I build myself. Software engineer at Orbitax, founder and technical advisor of RoboAI, builder of OrbiBot.',
   headline: ['Software Engineer', 'AI Agents & Automation', 'Robotics'],
   lead: 'I build AI agents and automation for real products, and put them on robots I build myself.',
   location: 'Dhaka, Bangladesh',
@@ -51,9 +51,10 @@ export const roles: Role[] = [
   },
   {
     place: 'RoboAI',
-    title: 'Founder & AI Engineer',
-    when: 'Since Jan 2024',
-    text: 'An AI studio that builds AI products, adds AI to existing systems, and makes AI agents that automate work.',
+    title: 'Founder & Technical Advisor',
+    when: 'Since Aug 2026',
+    earlier: 'Robotics & AI Automation Engineer, part time, May 2024 to Jul 2026; Founder & CEO, Oct 2023 to Apr 2024',
+    text: 'The AI and robotics startup I founded, now run by my juniors: it builds AI products, adds AI to existing systems, and makes AI agents that automate work.',
   },
   {
     place: 'OrbiBot',
@@ -110,13 +111,16 @@ export const projects: Project[] = [
     status: 'built',
     statusLabel: 'Built and driven',
     summary:
-      'A mecanum-wheeled robot on a stainless-steel frame I welded. I wrote its STM32 firmware and its 12 ROS 2 packages: localization that fuses the wheels with the IMU, LiDAR mapping with slam_toolbox, navigation with Nav2 and my own frontier exploration. A React dashboard drives it from a browser, and an AI agent controls it through 62 robot tools, on Gemini, Claude, Kimi or Ollama.',
+      'A mecanum-wheeled robot on a stainless-steel frame I welded. I wrote its STM32 firmware and its 12 ROS 2 packages: localization that fuses the wheels with the IMU, LiDAR mapping with slam_toolbox, navigation with Nav2 and frontier exploration. It runs on a Raspberry Pi 5. A React dashboard drives it from a browser, and an AI agent controls it through 58 robot tools, on Gemini, Claude, Kimi or Ollama.',
     stack:
       'ROS 2 Jazzy, Nav2, slam_toolbox, robot_localization, STM32 with PlatformIO, React, TypeScript, rosbridge and WebRTC',
-    links: [{ label: 'Build log on YouTube', href: 'https://www.youtube.com/@jewelnathdev/playlists' }],
+    links: [
+      { label: 'Code on GitHub', href: 'https://github.com/jewel-nath/orbibot-v1' },
+      { label: 'Build log on YouTube', href: 'https://www.youtube.com/@jewelnathdev/playlists' },
+    ],
     image: {
       src: orbibotV1,
-      alt: 'OrbiBot V1 from the side: a welded stainless-steel frame on four mecanum wheels, a LiDAR on top, a mini PC, a motor board and a battery pack inside.',
+      alt: 'OrbiBot V1 from the front: a welded stainless-steel frame on four mecanum wheels, a LiDAR on top, and a Raspberry Pi 5 above the STM32 motor board.',
     },
   },
   {

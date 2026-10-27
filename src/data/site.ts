@@ -31,6 +31,7 @@ export const profiles: Link[] = [
   { label: 'GitHub', href: 'https://github.com/jewel-nath' },
   { label: 'YouTube', href: 'https://www.youtube.com/@jewelnathdev' },
   { label: 'X', href: 'https://x.com/jewelnathdev' },
+  { label: 'ORCID', href: 'https://orcid.org/0009-0002-6609-6378' },
 ];
 
 export interface Role {

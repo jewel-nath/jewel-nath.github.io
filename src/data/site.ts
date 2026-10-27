@@ -159,6 +159,7 @@ export interface EarlierRobot {
   name: string;
   years: string;
   text: string;
+  code: string;
 }
 
 export const earlierRobots: EarlierRobot[] = [
@@ -166,21 +167,25 @@ export const earlierRobots: EarlierRobot[] = [
     name: 'EnviroBot',
     years: '2024',
     text: 'A rover with a 6-DOF arm: its camera tells paper, plastic, metal and other waste apart with YOLOv8, and the arm picks it up. My final-year project.',
+    code: 'https://github.com/jewel-nath/envirobot',
   },
   {
     name: 'ConveySort-Arm',
     years: '2024',
-    text: 'A robot arm and a conveyor belt that sort objects by size, with ROS 2, MoveIt and a camera.',
+    text: 'A six-servo arm and a conveyor belt that sort blocks by size, with a webcam, OpenCV and an Arduino.',
+    code: 'https://github.com/jewel-nath/conveysort-arm',
   },
   {
     name: 'Pi Car',
     years: '2022 to 2023',
     text: 'A Raspberry Pi car that follows lines, avoids obstacles, and drives by keyboard, phone or live video.',
+    code: 'https://github.com/jewel-nath/pi-car',
   },
   {
     name: 'Line follower',
     years: '2023',
     text: 'An Arduino line follower with PID steering, runner-up at BAIUST EEE Day 2023.',
+    code: 'https://github.com/jewel-nath/line-follower-robot',
   },
 ];
 

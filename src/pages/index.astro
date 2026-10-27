@@ -84,11 +84,11 @@ import { buildLog, cv, earlierRobots, profiles, projects, roles, site, skills } 
                   <span class="earlier__years">{robot.years}</span>
                 </h4>
                 <p>{robot.text}</p>
+                <a class="earlier__link" href={robot.code} aria-label={`${robot.name} code on GitHub`}>Code on GitHub</a>
               </li>
             ))
           }
         </ul>
-        <p class="earlier__code">Their code is on <a href={profiles[1].href}>my GitHub</a>.</p>
       </div>
     </section>
 

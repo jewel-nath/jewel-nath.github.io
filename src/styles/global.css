@@ -328,9 +328,12 @@ a:hover {
   margin: 0.25rem 0 0;
 }
 
-.earlier__code {
-  margin: 1.5rem 0 0;
-  color: var(--ink-soft);
+.earlier__link {
+  display: inline-block;
+  margin-top: 0.35rem;
+  padding-block: 0.3rem;
+  color: var(--ink);
+  font-weight: 600;
 }
 
 /* Skills */

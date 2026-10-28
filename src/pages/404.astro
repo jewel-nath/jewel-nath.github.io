@@ -1,0 +1,90 @@
+---
+import Base from '../layouts/Base.astro';
+
+const pages = [
+  { label: 'Home', href: '/', note: 'Who I am, and all the work' },
+  { label: 'OrbiBot', href: '/orbibot', note: 'My mecanum robot, from a welded frame to an AI agent' },
+  { label: 'Robot Niko', href: '/robot-niko', note: 'A life-size humanoid assistant, built in 2022' },
+  { label: 'CV', href: '/jewel-nath-cv.pdf', note: 'Two pages, as a PDF' },
+];
+---
+
+<Base title="Page not found · Jewel Nath" description="This page does not exist on jewelnath.dev.">
+  <section class="missing" aria-labelledby="missing-h">
+    <p class="label">404</p>
+    <h1 id="missing-h">Page not found</h1>
+    <p class="lead">This address doesn't lead anywhere on the site. It may have moved, or the link may have a typo.</p>
+    <ul class="pages">
+      {
+        pages.map((page) => (
+          <li>
+            <a class="card" href={page.href} data-glow>
+              <b>{page.label}</b>
+              <span>{page.note}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</Base>
+
+<style>
+  .missing {
+    padding: 72px 0 96px;
+    max-width: 760px;
+  }
+
+  .label {
+    color: var(--accent);
+  }
+
+  h1 {
+    font-size: clamp(44px, 7vw, 72px);
+    line-height: 1.02;
+    margin-bottom: 14px;
+  }
+
+  .lead {
+    font-size: 19px;
+    margin-bottom: 36px;
+  }
+
+  .pages {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .pages a {
+    display: block;
+    padding: 18px 20px;
+    color: var(--text);
+    transition: border-color 0.15s;
+  }
+
+  .pages a:hover {
+    border-color: var(--accent-line);
+    text-decoration: none;
+  }
+
+  .pages b {
+    display: block;
+    font: 500 22px var(--display);
+    color: var(--heading);
+    margin-bottom: 4px;
+  }
+
+  .pages span {
+    font-size: 14px;
+  }
+
+  @media (max-width: 560px) {
+    .pages {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

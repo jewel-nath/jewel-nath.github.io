@@ -28,6 +28,26 @@ export interface Video {
   caption?: string;
 }
 
+export interface Clip extends Video {
+  when: string;
+}
+
+// Clips named by date and subject, each with a poster of the same name.
+export function clipsIn(folder: string) {
+  return (name: string, when: string, caption: string): Clip => ({
+    src: `${folder}/${name}.mp4`,
+    poster: `${folder}/${name}.jpg`,
+    label: caption,
+    caption,
+    when,
+  });
+}
+
+export interface Fact {
+  label: string;
+  value: string;
+}
+
 export interface Stat {
   value: string;
   label: string;
@@ -157,14 +177,15 @@ export const nikoFeature = {
     },
     stats: [
       { value: '27', label: 'servos: head, eyes, jaw, arms, fingers' },
-      { value: '51', label: 'questions in its own answer bank' },
+      { value: '51', label: 'questions in its answer bank, as published' },
       { value: '13', label: 'diagrams in its report' },
     ],
     tags: ['Python', 'Raspberry Pi', 'OpenCV', 'face_recognition', 'PCA9685', '3D printing'],
     links: [
-      { label: 'Report · DOI', href: 'https://doi.org/10.5281/zenodo.23719561', icon: 'doc', primary: true },
+      { label: 'Project page', href: '/robot-niko', icon: 'arrow', primary: true },
+      { label: 'Report · DOI', href: 'https://doi.org/10.5281/zenodo.23719561', icon: 'doc' },
       { label: 'Code', href: 'https://github.com/jewel-nath/robot-niko', icon: 'code' },
-      { label: 'Video', href: 'https://youtu.be/Iotg0E8AKoU', icon: 'yt' },
+      { label: '5 videos', href: '/robot-niko#video', icon: 'play' },
     ],
   } satisfies Feature,
   photos: {

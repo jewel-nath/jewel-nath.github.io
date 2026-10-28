@@ -1,0 +1,304 @@
+/* The parts every project page shares: the title block, "What it shows", pictures, datasheets,
+   dated photos, lessons and the closing card. Each page wraps its content in .project. */
+
+.project .intro {
+  padding: 40px 0 56px;
+}
+
+.project .back {
+  display: inline-block;
+  font-size: 14px;
+  margin-bottom: 18px;
+}
+
+.project h1 {
+  font-size: clamp(44px, 7vw, 72px);
+  line-height: 1.02;
+  margin-bottom: 14px;
+}
+
+.project .intro__lead {
+  font-size: 19px;
+  line-height: 1.6;
+  max-width: 40em;
+  margin-bottom: 12px;
+}
+
+.project .intro .meta {
+  margin-bottom: 26px;
+}
+
+.project .shows {
+  background: var(--card);
+  border: 1px solid var(--accent-line);
+  border-radius: 18px;
+  padding: 22px 24px 8px;
+  box-shadow: var(--card-shadow);
+}
+
+.project .shows .label {
+  color: var(--accent);
+}
+
+.project .shows dl {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 36px;
+  margin: 0;
+}
+
+.project .shows dl div {
+  padding: 12px 0;
+  border-top: 1px solid var(--border);
+}
+
+.project .shows dt {
+  font-weight: 600;
+  color: var(--heading);
+  font-size: 15px;
+}
+
+.project .shows dd {
+  margin: 2px 0 0;
+  font-size: 14.5px;
+}
+
+.project .sub {
+  font-size: 26px;
+  margin: 48px 0 18px;
+}
+
+.project .note {
+  color: var(--muted);
+  font-size: 14.5px;
+  margin: -8px 0 16px;
+}
+
+/* Pictures that open large */
+.project .tile {
+  position: relative;
+  display: block;
+  width: 100%;
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--card-2);
+  border: 0;
+  padding: 0;
+  cursor: zoom-in;
+  box-shadow: var(--photo-shadow);
+}
+
+.project .tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.project .tile:hover img {
+  transform: scale(1.03);
+}
+
+/* Report figures: drawn on white, shown whole. */
+.project .tile--paper {
+  background: #fff;
+}
+
+.project .tile--paper img {
+  object-fit: contain;
+}
+
+.project .tile--paper:hover img {
+  transform: none;
+}
+
+.project .cap {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  font-size: 12.5px;
+  color: #f3efe6;
+}
+
+.project .cap span {
+  background: rgba(10, 11, 13, 0.62);
+  backdrop-filter: blur(4px);
+  padding: 3px 9px;
+  border-radius: 7px;
+}
+
+.project figure {
+  margin: 0;
+}
+
+.project figcaption {
+  font-size: 13.5px;
+  color: var(--muted);
+  margin-top: 8px;
+}
+
+.project .two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+
+.project .card {
+  padding: 22px 24px;
+}
+
+.project .datasheet dl {
+  margin: 0;
+}
+
+.project .datasheet dl div {
+  display: grid;
+  grid-template-columns: 7.5rem 1fr;
+  gap: 12px;
+  padding: 10px 0;
+  border-top: 1px solid var(--border);
+  font-size: 14.5px;
+}
+
+.project .datasheet dt {
+  color: var(--muted);
+}
+
+.project .datasheet dd {
+  margin: 0;
+  color: var(--heading);
+}
+
+.project .lessons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.project .lesson h4 {
+  font-size: 21px;
+  margin-bottom: 8px;
+}
+
+.project .lesson p {
+  font-size: 15px;
+}
+
+/* Dated photos, oldest first */
+.project .timeline-grid {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.project .timeline-grid .tile {
+  aspect-ratio: 4 / 3;
+  margin-bottom: 10px;
+}
+
+.project .timeline-grid p {
+  font-size: 14.5px;
+}
+
+.project .when {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.project .code-link {
+  margin-top: 18px;
+  font-size: 14.5px;
+  font-weight: 500;
+}
+
+.project .gallery {
+  display: grid;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.project .gallery--2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.project .gallery--4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.project .gallery--4 .tile {
+  aspect-ratio: 1.414 / 1;
+}
+
+.project .gallery--2 .tile {
+  aspect-ratio: 16 / 10;
+  background: #fff;
+}
+
+/* Closing card */
+.project .cta {
+  margin: 8px 0 72px;
+  padding: 44px;
+  border-radius: 24px;
+  border: 1px solid var(--accent-line);
+  text-align: center;
+  background:
+    radial-gradient(80% 120% at 50% 0%, var(--accent-soft), transparent 70%),
+    var(--card);
+  box-shadow: var(--card-shadow);
+}
+
+.project .cta h2 {
+  font-size: clamp(28px, 3.6vw, 38px);
+  margin-bottom: 10px;
+}
+
+.project .cta p {
+  color: var(--muted);
+  margin-bottom: 22px;
+}
+
+.project .actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+@media (max-width: 980px) {
+  .project .lessons,
+  .project .timeline-grid,
+  .project .gallery--4 {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .project .shows dl,
+  .project .two-col,
+  .project .gallery--2 {
+    grid-template-columns: 1fr;
+  }
+
+  .project .card {
+    padding: 18px;
+  }
+
+  .project .datasheet dl div {
+    grid-template-columns: 6rem 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .project .lessons,
+  .project .timeline-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .project .cta {
+    padding: 32px 20px;
+  }
+}

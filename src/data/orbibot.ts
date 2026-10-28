@@ -19,12 +19,7 @@ import sheetMotors from '../assets/orbibot/v2/v2-schematic-motors.png';
 import sheetPower from '../assets/orbibot/v2/v2-schematic-power.png';
 import sheetSensors from '../assets/orbibot/v2/v2-schematic-sensors-io.png';
 import architecture from '../assets/reports/orbibot-v1-system-architecture.png';
-import type { Picture, Video } from './site';
-
-export interface Fact {
-  label: string;
-  value: string;
-}
+import { clipsIn, type Fact, type Picture, type Video } from './site';
 
 export interface Part {
   title: string;
@@ -66,13 +61,7 @@ export const parts: Record<string, Part> = {
   },
 };
 
-export interface Clip extends Video {
-  when: string;
-}
-
-function clip(name: string, when: string, caption: string, folder = '/media/orbibot/v1/videos'): Clip {
-  return { src: `${folder}/${name}.mp4`, poster: `${folder}/${name}.jpg`, label: caption, caption, when };
-}
+const clip = clipsIn('/media/orbibot/v1/videos');
 
 export const architectureFigure = {
   href: architecture.src,
@@ -175,7 +164,7 @@ export const v1 = {
       title: 'Mapping and driving',
       upright: true,
       items: [
-        clip('v1-2025-07-20-pi5-gamepad-slam-map', 'Jul 2025', 'On its Raspberry Pi 5, with its gamepad and a SLAM map in RViz', '/media/orbibot/v1'),
+        clipsIn('/media/orbibot/v1')('v1-2025-07-20-pi5-gamepad-slam-map', 'Jul 2025', 'On its Raspberry Pi 5, with its gamepad and a SLAM map in RViz'),
         clip('v1-2026-01-08-home-navigation-run-1', 'Jan 2026', 'A map of my home in RViz, then the robot driving on the floor'),
         clip('v1-2026-01-08-home-navigation-run-2', 'Jan 2026', 'A second run at home'),
       ],

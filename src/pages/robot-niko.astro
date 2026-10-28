@@ -1,0 +1,511 @@
+---
+import { Image } from 'astro:assets';
+import ClipGallery from '../components/ClipGallery.astro';
+import ReportCard from '../components/ReportCard.astro';
+import { build, demos, how, intro, lessons, report, shows, team } from '../data/robot-niko';
+import { reports } from '../data/site';
+import Base from '../layouts/Base.astro';
+import '../styles/project.css';
+
+const nikoReport = reports.find((r) => r.doi === report.doi)!;
+
+const sections = [
+  { id: 'video', label: 'In video' },
+  { id: 'build', label: 'The build' },
+  { id: 'how', label: 'How it works' },
+  { id: 'team', label: 'The team' },
+  { id: 'report', label: 'The report' },
+];
+---
+
+<Base title="Robot Niko: a life-size humanoid assistant · Jewel Nath" description={intro.lead}>
+  <div class="project">
+    <section class="intro" id="top" aria-labelledby="title">
+      <a class="back" href="/">← Home</a>
+      <h1 id="title">{intro.title}</h1>
+      <p class="intro__lead">{intro.lead}</p>
+      <p class="meta">
+        <span class="status">{intro.status}</span><span class="num">{intro.years}</span><span>My part: {intro.role}</span>
+      </p>
+      <nav class="jump" aria-label="On this page">
+        {sections.map((section) => <a href={`#${section.id}`}>{section.label}</a>)}
+      </nav>
+      <div class="shows" data-glow>
+        <p class="label">What it shows</p>
+        <dl>
+          {
+            shows.map((fact) => (
+              <div>
+                <dt>{fact.label}</dt>
+                <dd>{fact.value}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+    </section>
+
+    <section class="section" id="video" aria-labelledby="video-h">
+      <div class="sec-head" data-reveal>
+        <p class="label">In video · December 2022</p>
+        <h2 id="video-h">Niko working</h2>
+        <p>Recorded at the FabLab in the days around its launch, with sound.</p>
+      </div>
+
+      <div class="demos">
+        {
+          demos.map((item, i) => (
+            <figure class:list={['demo', { 'demo--lead': i === 0 }]} data-reveal>
+              <div class="demo__frame">
+                <video controls playsinline preload="none" poster={item.poster} aria-label={item.label}>
+                  <source src={item.src} type="video/mp4" />
+                </video>
+              </div>
+              <figcaption>
+                <p class="when num">
+                  {item.when} · {item.length}
+                </p>
+                <p class="demo__cap">{item.caption}</p>
+                {
+                  item.youtube && (
+                    <a class="demo__yt" href={item.youtube}>
+                      <svg class="ico">
+                        <use href="#i-yt" />
+                      </svg>
+                      On YouTube
+                    </a>
+                  )
+                }
+              </figcaption>
+            </figure>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="section" id="build" aria-labelledby="build-h">
+      <div class="sec-head" data-reveal>
+        <p class="label">Built · Aug – Dec 2022</p>
+        <h2 id="build-h">From a 3D model to a life-size robot</h2>
+        <p>{build.text}</p>
+      </div>
+
+      <div class="build-hero" data-reveal>
+        {
+          build.hero.map((photo, i) => (
+            <button class="tile" data-full={photo.src.src} data-cap={photo.caption}>
+              <Image src={photo.src} alt={photo.alt} width={i === 0 ? 960 : 540} densities={[1, 2]} loading="eager" />
+              <span class="cap">
+                <span>{photo.caption}</span>
+              </span>
+            </button>
+          ))
+        }
+      </div>
+
+      <h3 class="sub" data-reveal>The build, in photos</h3>
+      <ol class="timeline-grid">
+        {
+          build.timeline.map((photo) => (
+            <li data-reveal>
+              <button class="tile" data-full={photo.src.src} data-cap={`${photo.when}: ${photo.caption}`}>
+                <Image src={photo.src} alt={photo.alt} width={480} densities={[1, 2]} />
+              </button>
+              <p class="when num">{photo.when}</p>
+              <p>{photo.caption}</p>
+            </li>
+          ))
+        }
+      </ol>
+
+      <div class="build-more">
+        <ClipGallery groups={build.clips} />
+        <figure class="build-figure" data-reveal>
+          <h4>The year in one figure</h4>
+          <button class="tile tile--paper" data-full={build.timelineFigure.src.src} data-cap={build.timelineFigure.caption}>
+            <Image src={build.timelineFigure.src} alt="A timeline of Niko in 2022, from the first work to the public launch." width={720} densities={[1, 2]} />
+          </button>
+          <figcaption>{build.timelineFigure.caption}</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" id="how" aria-labelledby="how-h">
+      <div class="sec-head" data-reveal>
+        <p class="label">How it works</p>
+        <h2 id="how-h">One Raspberry Pi, 27 servos, a voice and a camera</h2>
+        <p>{how.text}</p>
+      </div>
+
+      <div class="two-col">
+        <div class="datasheet card" data-glow data-reveal>
+          <p class="label">Datasheet</p>
+          <dl>
+            {
+              how.facts.map((fact) => (
+                <div>
+                  <dt>{fact.label}</dt>
+                  <dd>{fact.value}</dd>
+                </div>
+              ))
+            }
+          </dl>
+        </div>
+        <figure class="card overview" data-glow data-reveal>
+          <p class="label">The whole robot</p>
+          <button class="tile tile--paper" data-full={how.overview.src.src} data-cap={how.overview.caption}>
+            <Image src={how.overview.src} alt="The system overview diagram: the Raspberry Pi, the two servo boards and 27 servos, and the voice and vision devices." width={640} densities={[1, 2]} />
+          </button>
+          <figcaption>{how.overview.caption}. Tap to open it large.</figcaption>
+        </figure>
+      </div>
+
+      {
+        how.topics.map((topic) => (
+          <article class="topic card" id={topic.id} data-glow data-reveal>
+            <div class="topic__text">
+              <h3>{topic.title}</h3>
+              {topic.text.map((paragraph) => (
+                <p>{paragraph}</p>
+              ))}
+            </div>
+            <div class:list={['topic__figs', { 'topic__figs--stack': topic.figures.length <= 2 }]}>
+              {topic.figures.map((figure) => (
+                <figure>
+                  <button class="tile tile--paper" data-full={figure.src.src} data-cap={figure.caption}>
+                    <Image src={figure.src} alt={figure.caption} width={640} densities={[1, 2]} />
+                  </button>
+                  <figcaption>{figure.caption}</figcaption>
+                </figure>
+              ))}
+            </div>
+          </article>
+        ))
+      }
+    </section>
+
+    <section class="section" id="team" aria-labelledby="team-h">
+      <div class="sec-head" data-reveal>
+        <p class="label">My part, and the team</p>
+        <h2 id="team-h">Built by Quanta Robotics</h2>
+      </div>
+
+      <div class="two-col">
+        <div class="card" data-glow data-reveal>
+          <p class="team__text">{team.text}</p>
+          <p class="label">The team</p>
+          <ul class="members">
+            {team.members.map((name, i) => <li class:list={{ me: i === 0 }}>{name}</li>)}
+          </ul>
+          <p class="team__launch">{team.launch}</p>
+        </div>
+        <div class="card credits" data-glow data-reveal>
+          <p class="label">Built on</p>
+          <dl>
+            {
+              team.credits.map((credit) => (
+                <div>
+                  <dt>{credit.what}</dt>
+                  <dd>
+                    <a href={credit.href}>{credit.text}</a>
+                  </dd>
+                </div>
+              ))
+            }
+          </dl>
+          <p class="credits__note">Each file taken from another project keeps its own licence notice; Niko's own code is under the MIT licence.</p>
+        </div>
+      </div>
+
+      <h3 class="sub" data-reveal>What I learned</h3>
+      <div class="lessons">
+        {
+          lessons.map((lesson) => (
+            <article class="card lesson" data-glow data-reveal>
+              <h4>{lesson.title}</h4>
+              <p>{lesson.text}</p>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="section" id="report" aria-labelledby="report-h">
+      <div class="sec-head" data-reveal>
+        <p class="label">The report</p>
+        <h2 id="report-h">Read the full design</h2>
+        <p>15 pages and 13 diagrams, checked against the code, its history and the dated photos and videos, with the team as co-authors.</p>
+      </div>
+      <ReportCard report={nikoReport} />
+      <p class="code-link"><a href={report.code}>Niko's code and documentation on GitHub →</a></p>
+    </section>
+
+    <section class="cta" aria-labelledby="cta-h" data-reveal>
+      <h2 id="cta-h">Next: OrbiBot</h2>
+      <p>My own robot: a mecanum base with my own firmware, ROS 2 navigation and an AI agent.</p>
+      <div class="actions">
+        <a class="btn primary" href="/orbibot">See OrbiBot<svg class="ico"><use href="#i-arrow"></use></svg></a>
+        <a class="btn" href="/#work">All the work</a>
+      </div>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .intro .meta .status {
+    margin-right: 2px;
+  }
+
+  .jump {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 28px;
+  }
+
+  .jump a {
+    padding: 7px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+    font-size: 13.5px;
+    transition: border-color 0.15s;
+  }
+
+  .jump a:hover {
+    border-color: var(--accent-line);
+    color: var(--heading);
+    text-decoration: none;
+  }
+
+  /* Videos with sound: the first large, the rest two by two. */
+  .demos {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px 22px;
+  }
+
+  .demo--lead {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(0, 2.4fr) minmax(0, 1fr);
+    gap: 22px;
+    align-items: end;
+  }
+
+  .demo__frame {
+    border-radius: 14px;
+    overflow: hidden;
+    background: #000;
+    aspect-ratio: 16 / 9;
+    box-shadow: var(--photo-shadow);
+  }
+
+  .demo video {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .demo figcaption {
+    margin-top: 12px;
+  }
+
+  .demo--lead figcaption {
+    margin: 0;
+  }
+
+  .demo__cap {
+    color: var(--heading);
+    font-size: 15.5px;
+    margin: 2px 0 8px;
+  }
+
+  .demo--lead .demo__cap {
+    font: 400 24px/1.3 var(--display);
+  }
+
+
+  .demo__yt {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+    font-size: 13.5px;
+    font-weight: 500;
+  }
+
+  .demo__yt .ico {
+    width: 15px;
+    height: 15px;
+  }
+
+  /* The finished robot: a wide photo and an upright one at the same height. */
+  .build-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 16fr) minmax(0, 9fr);
+    gap: 16px;
+  }
+
+  .build-hero .tile:first-child {
+    aspect-ratio: 4 / 3;
+  }
+
+  .build-hero .tile:last-child {
+    aspect-ratio: 3 / 4;
+  }
+
+  .build-more {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+    gap: 28px;
+    margin-top: 48px;
+    align-items: start;
+  }
+
+  .build-more :global(.clips__grid) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .build-figure h4 {
+    font: 600 15px var(--sans);
+    color: var(--heading);
+    margin-bottom: 14px;
+  }
+
+  .overview {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .overview .tile {
+    margin: auto 0;
+  }
+
+  /* One card per subsystem: the text beside its figures. */
+  .topic {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+    gap: 28px;
+    margin-top: 22px;
+    scroll-margin-top: 90px;
+  }
+
+  .topic h3 {
+    font-size: 28px;
+    margin-bottom: 12px;
+  }
+
+  .topic p + p {
+    margin-top: 12px;
+  }
+
+  .topic__text p {
+    font-size: 15.5px;
+  }
+
+  .topic__figs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    align-content: start;
+  }
+
+  .topic__figs figure:first-child,
+  .topic__figs--stack figure {
+    grid-column: 1 / -1;
+  }
+
+  .team__text {
+    font-size: 15.5px;
+    margin-bottom: 18px;
+  }
+
+  .members {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 18px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .members li {
+    padding: 5px 12px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--heading);
+    font-size: 13.5px;
+  }
+
+  .members .me {
+    background: var(--accent);
+    color: var(--on-accent);
+    font-weight: 600;
+  }
+
+  .team__launch {
+    font-size: 14.5px;
+    border-top: 1px solid var(--border);
+    padding-top: 14px;
+  }
+
+  .credits dl {
+    margin: 0 0 14px;
+  }
+
+  .credits dl div {
+    padding: 10px 0;
+    border-top: 1px solid var(--border);
+    font-size: 14.5px;
+  }
+
+  .credits dt {
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .credits dd {
+    margin: 2px 0 0;
+  }
+
+  .credits__note {
+    font-size: 13.5px;
+    color: var(--muted);
+  }
+
+  @media (max-width: 860px) {
+    .demo--lead,
+    .build-more,
+    .topic {
+      grid-template-columns: 1fr;
+    }
+
+    .demo--lead figcaption {
+      margin-top: 4px;
+    }
+  }
+
+  @media (max-width: 620px) {
+    .demos {
+      grid-template-columns: 1fr;
+    }
+
+    .demo--lead .demo__cap {
+      font-size: 20px;
+    }
+  }
+
+  /* Nine dated photos: two to a row on a phone, so the page stays short. */
+  @media (max-width: 520px) {
+    :global(.project) .timeline-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 18px 12px;
+    }
+
+    :global(.project) .timeline-grid p {
+      font-size: 13px;
+    }
+  }
+</style>

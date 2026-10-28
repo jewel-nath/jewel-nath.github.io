@@ -9,18 +9,35 @@
     <meta charset="utf-8" />
     <style>
       @font-face {
-        font-family: 'Archivo Variable';
-        font-weight: 100 900;
-        font-stretch: 62% 125%;
-        src: url('../node_modules/@fontsource-variable/archivo/files/archivo-latin-wdth-normal.woff2') format('woff2-variations');
+        font-family: 'Newsreader Variable';
+        font-weight: 200 800;
+        src: url('../node_modules/@fontsource-variable/newsreader/files/newsreader-latin-opsz-normal.woff2') format('woff2-variations');
       }
 
+      @font-face {
+        font-family: 'Inter Variable';
+        font-weight: 100 900;
+        src: url('../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2') format('woff2-variations');
+      }
+
+      @font-face {
+        font-family: 'Geist Variable';
+        font-weight: 100 900;
+        src: url('../node_modules/@fontsource-variable/geist/files/geist-latin-wght-normal.woff2') format('woff2-variations');
+      }
+
+      /* The site's dark theme. */
       :root {
-        --paper: #f2f4f5;
-        --ink: #18212b;
-        --ink-soft: #4b5663;
-        --rule: #cfd5db;
-        --signal: #f25c05;
+        --bg: #0f1114;
+        --card: #171a1f;
+        --border: #272c33;
+        --text: #c6cbd2;
+        --heading: #f3efe6;
+        --muted: #8c929b;
+        --accent: #e3b341;
+        --accent-hi: #f2c95f;
+        --accent-soft: rgba(227, 179, 65, 0.12);
+        --on-accent: #1b1404;
       }
 
       html,
@@ -29,190 +46,211 @@
         height: 630px;
         margin: 0;
         overflow: hidden;
-        background: var(--paper);
-        color: var(--ink);
-        font-family: 'Archivo Variable', sans-serif;
       }
 
-      .card {
+      body {
+        position: relative;
+        color: var(--text);
+        font: 400 22px/1.5 'Inter Variable', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        background:
+          radial-gradient(760px 420px at 0% 0%, rgba(227, 179, 65, 0.16), transparent 70%),
+          radial-gradient(620px 460px at 100% 100%, rgba(227, 179, 65, 0.07), transparent 70%),
+          var(--bg);
+      }
+
+      .page {
+        position: absolute;
+        inset: 0;
         display: grid;
-        grid-template-columns: minmax(0, 1fr) 520px;
-        align-items: center;
+        grid-template-columns: 1fr 392px;
         gap: 48px;
+        padding: 60px 64px 56px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font: 600 22px 'Geist Variable', sans-serif;
+        letter-spacing: -0.02em;
+        color: var(--heading);
+        margin-bottom: 40px;
+      }
+
+      .brand span {
+        width: 36px;
+        height: 36px;
+        border-radius: 11px;
+        display: grid;
+        place-items: center;
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--on-accent);
+        background: linear-gradient(135deg, var(--accent-hi), var(--accent));
+        box-shadow: 0 6px 22px rgba(227, 179, 65, 0.3);
+      }
+
+      .who {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+        margin-bottom: 24px;
+      }
+
+      .portrait {
+        width: 128px;
+        height: 128px;
+        border-radius: 50%;
+        padding: 4px;
+        flex: none;
+        background: conic-gradient(from 210deg, var(--accent), rgba(227, 179, 65, 0.42), var(--accent));
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5);
+      }
+
+      .portrait img {
+        width: 100%;
         height: 100%;
-        padding: 0 56px 0 72px;
-        box-sizing: border-box;
-        border-top: 10px solid var(--ink);
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid var(--bg);
+        display: block;
       }
 
       h1 {
         margin: 0;
-        font-size: 124px;
-        font-weight: 800;
-        font-stretch: 125%;
-        line-height: 0.9;
-        letter-spacing: -0.03em;
+        font: 500 82px/1 'Newsreader Variable', serif;
+        font-variation-settings: 'opsz' 72;
+        letter-spacing: -0.02em;
+        color: var(--heading);
       }
 
-      .tagline {
-        margin: 30px 0 0;
-        font-size: 25px;
-        font-weight: 600;
-        font-stretch: 110%;
+      .role {
+        margin: 0 0 14px;
+        font-size: 24px;
+        font-weight: 500;
+        color: var(--heading);
       }
 
-      .tagline i {
+      .role i {
         font-style: normal;
-        white-space: nowrap;
+        color: var(--accent);
+        padding: 0 8px;
       }
 
-      .tagline span {
-        margin-inline: 0.1em;
-        color: var(--ink-soft);
-        font-weight: 400;
+      .lede {
+        margin: 0 0 30px;
+        font-size: 25px;
+        line-height: 1.45;
+        max-width: 30em;
       }
 
-      .domain {
-        margin: 44px 0 0;
-        font-size: 26px;
-        font-weight: 700;
-        font-stretch: 112%;
+      .lede b {
+        color: var(--heading);
+        font-weight: 600;
       }
 
-      .domain::before {
-        content: '';
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .chips span {
+        font-size: 17px;
+        font-weight: 500;
+        padding: 6px 15px;
+        border-radius: 999px;
+        background: var(--accent-soft);
+        color: var(--heading);
+      }
+
+      /* The work, as a stack of two photo cards. */
+      .work {
+        position: relative;
+        align-self: center;
+        height: 512px;
+      }
+
+      .card {
+        position: absolute;
+        width: 300px;
+        border-radius: 18px;
+        overflow: hidden;
+        background: var(--card);
+        border: 1px solid var(--border);
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+      }
+
+      .card img {
+        display: block;
+        width: 100%;
+        height: 196px;
+        object-fit: cover;
+      }
+
+      .card p {
+        margin: 0;
+        padding: 12px 16px 14px;
+        font-size: 17px;
+        color: var(--heading);
+        font-weight: 600;
+      }
+
+      .card p span {
         display: inline-block;
-        width: 14px;
-        height: 14px;
-        margin-right: 14px;
-        border-radius: 50%;
-        background: var(--signal);
+        margin-left: 8px;
+        font-size: 13px;
+        padding: 2px 9px;
+        border-radius: 999px;
+        background: var(--accent-soft);
+        color: var(--accent);
+        vertical-align: 2px;
       }
 
-      canvas {
-        width: 520px;
-        height: 520px;
+      .card.one {
+        top: 0;
+        right: 0;
+        transform: rotate(2deg);
+      }
+
+      .card.two {
+        bottom: 0;
+        left: 0;
+        transform: rotate(-3deg);
+      }
+
+      .card.two img {
+        object-position: 50% 30%;
       }
     </style>
   </head>
   <body>
-    <div class="card">
+    <div class="page">
       <div>
-        <h1>Jewel<br />Nath</h1>
-        <p class="tagline"><i>Software Engineer</i> <span>/</span> <i>AI Agents &amp; Automation</i> <span>/</span> <i>Robotics</i></p>
-        <p class="domain">jewelnath.dev</p>
+        <div class="brand"><span>JN</span>jewelnath.dev</div>
+        <div class="who">
+          <div class="portrait"><img src="../src/assets/home/portrait.jpg" alt="" /></div>
+          <h1>Jewel Nath</h1>
+        </div>
+        <p class="role">Software Engineer<i>·</i>AI Agents &amp; Automation<i>·</i>Robotics</p>
+        <p class="lede">I build <b>AI agents and automation</b> for real products, and put them on <b>robots I build myself</b>.</p>
+        <div class="chips">
+          <span>AI agents &amp; MCP</span>
+          <span>ROS 2 robots</span>
+          <span>2 technical reports with DOIs</span>
+        </div>
       </div>
-      <canvas width="1040" height="1040"></canvas>
+      <div class="work">
+        <div class="card one">
+          <img src="../src/assets/orbibot/v1/v1-2025-09-24-pi5-build-front.jpg" alt="" />
+          <p>OrbiBot V1<span>Built and driven</span></p>
+        </div>
+        <div class="card two">
+          <img src="../src/assets/home/robot-niko-2022-11-29-full-robot.jpg" alt="" />
+          <p>Robot Niko<span>Built</span></p>
+        </div>
+      </div>
     </div>
-    <script>
-      // A still copy of the scan in src/components/LidarScan.astro, at the end of its turn.
-      const TAU = Math.PI * 2;
-      const box = (x0, y0, x1, y1) => [
-        [x0, y0, x1, y0],
-        [x1, y0, x1, y1],
-        [x1, y1, x0, y1],
-        [x0, y1, x0, y0],
-      ];
-      const segments = [
-        [-2.6, -1.8, 0.6, -1.8],
-        [1.5, -1.8, 3.4, -1.8],
-        [3.4, -1.8, 3.4, 1.2],
-        [3.4, 1.2, 1.6, 1.2],
-        [1.6, 1.2, 1.6, 2.6],
-        [1.6, 2.6, -2.6, 2.6],
-        [-2.6, 2.6, -2.6, -1.8],
-        [-0.4, -3.0, 2.6, -3.0],
-        ...box(-2.5, 1.65, -0.9, 2.5),
-        ...box(-2.5, -1.7, -1.95, -0.95),
-        ...box(0.85, 1.75, 1.3, 2.2),
-      ];
-      const legs = [
-        [1.9, -1.0, 0.035],
-        [2.8, -1.0, 0.035],
-        [1.9, -0.25, 0.035],
-        [2.8, -0.25, 0.035],
-      ];
-      const view = { minX: -3.0, maxX: 3.8, minY: -3.4, maxY: 3.0 };
-
-      let seed = 7;
-      const next = () => {
-        seed = (seed + 0x6d2b79f5) | 0;
-        let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
-        t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-      };
-      const gaussian = () => Math.sqrt(-2 * Math.log(1 - next())) * Math.cos(TAU * next());
-
-      const cast = (dx, dy) => {
-        let nearest = Infinity;
-        for (const [ax, ay, bx, by] of segments) {
-          const ex = bx - ax;
-          const ey = by - ay;
-          const d = dx * ey - dy * ex;
-          if (Math.abs(d) < 1e-9) continue;
-          const t = (ax * ey - ay * ex) / d;
-          const u = (ax * dy - ay * dx) / d;
-          if (t > 0.05 && u >= 0 && u <= 1 && t < nearest) nearest = t;
-        }
-        for (const [cx, cy, r] of legs) {
-          const b = -(dx * cx + dy * cy);
-          const disc = b * b - (cx * cx + cy * cy - r * r);
-          if (disc < 0) continue;
-          const t = -b - Math.sqrt(disc);
-          if (t > 0.05 && t < nearest) nearest = t;
-        }
-        return nearest;
-      };
-
-      const canvas = document.querySelector('canvas');
-      const ctx = canvas.getContext('2d');
-      const style = getComputedStyle(document.documentElement);
-      const color = (name) => style.getPropertyValue(name).trim();
-      const scale = Math.min(canvas.width / (view.maxX - view.minX), canvas.height / (view.maxY - view.minY));
-      const ox = (canvas.width - (view.maxX - view.minX) * scale) / 2 - view.minX * scale;
-      const oy = (canvas.height - (view.maxY - view.minY) * scale) / 2 + view.maxY * scale;
-
-      ctx.strokeStyle = color('--rule');
-      ctx.lineWidth = 1.5;
-      ctx.beginPath();
-      for (let x = Math.ceil(view.minX); x <= view.maxX; x++) {
-        ctx.moveTo(ox + x * scale, 0);
-        ctx.lineTo(ox + x * scale, canvas.height);
-      }
-      for (let y = Math.ceil(view.minY); y <= view.maxY; y++) {
-        ctx.moveTo(0, oy - y * scale);
-        ctx.lineTo(canvas.width, oy - y * scale);
-      }
-      ctx.stroke();
-
-      ctx.fillStyle = color('--signal');
-      for (let i = 0; i < 720; i++) {
-        const angle = (i / 720) * TAU;
-        const dx = Math.cos(angle);
-        const dy = Math.sin(angle);
-        const range = cast(dx, dy);
-        if (range > 8 || next() < 0.04) continue;
-        const measured = range + gaussian() * (0.008 + range * 0.004);
-        ctx.fillRect(ox + dx * measured * scale - 2.5, oy - dy * measured * scale - 2.5, 5, 5);
-      }
-
-      ctx.save();
-      ctx.translate(ox, oy);
-      ctx.fillStyle = color('--ink');
-      for (const [wx, wy] of [
-        [0.16, 0.2],
-        [-0.16, 0.2],
-        [0.16, -0.2],
-        [-0.16, -0.2],
-      ]) {
-        ctx.fillRect((wx - 0.055) * scale, (-wy - 0.028) * scale, 0.11 * scale, 0.056 * scale);
-      }
-      ctx.fillRect(-0.22 * scale, -0.17 * scale, 0.44 * scale, 0.34 * scale);
-      ctx.fillStyle = color('--paper');
-      ctx.beginPath();
-      ctx.arc(0.06 * scale, 0, 0.065 * scale, 0, TAU);
-      ctx.fill();
-      ctx.restore();
-    </script>
   </body>
 </html>

@@ -1,0 +1,157 @@
+---
+// A technical report: a figure from it, the citation, its DOI, and a Cite button that copies BibTeX.
+import { Image } from 'astro:assets';
+import type { Report } from '../data/site';
+
+interface Props {
+  report: Report;
+}
+
+const { report } = Astro.props;
+const doiUrl = `https://doi.org/${report.doi}`;
+const [firstAuthor, ...coAuthors] = report.authors;
+---
+
+<article class="report" data-glow data-reveal>
+  <button class="paper" data-full={report.figure.src.src} data-cap={report.figure.caption} aria-label={`See a figure: ${report.figure.caption}`}>
+    <span class="paper__band"><i></i><i></i><i></i></span>
+    <Image src={report.figure.src} alt="" width={240} loading="lazy" />
+    <i></i><i class="s"></i><i></i><i></i><i class="s"></i><i></i>
+  </button>
+  <div>
+    <p class="report__kind">{report.kind}</p>
+    <h3>{report.title}</h3>
+    <p class="report__authors"><b>{firstAuthor}</b>{coAuthors.length > 0 && `, ${coAuthors.join(', ')}`}</p>
+    <p class="report__doi num">DOI <a href={doiUrl}>{report.doi}</a></p>
+    <div class="links">
+      <a class="btn sm" href={doiUrl}><svg class="ico"><use href="#i-doc"></use></svg>Read on Zenodo</a>
+      <a class="btn sm" href={report.researchGate}><svg class="ico"><use href="#i-rg"></use></svg>ResearchGate</a>
+      <button class="btn sm" data-bib={report.bibtex}><svg class="ico"><use href="#i-quote"></use></svg>Cite</button>
+      <span class="toast" role="status"></span>
+    </div>
+  </div>
+</article>
+
+<style>
+  .report {
+    display: grid;
+    grid-template-columns: 128px minmax(0, 1fr);
+    gap: 22px;
+    padding: 22px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    box-shadow: var(--card-shadow);
+    transition: border-color 0.2s;
+  }
+
+  .report:hover {
+    border-color: var(--accent-line);
+  }
+
+  .paper {
+    aspect-ratio: 1 / 1.414;
+    background: #fff;
+    border: 0;
+    border-radius: 5px;
+    padding: 8px 7px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    box-shadow: var(--photo-shadow);
+    overflow: hidden;
+    cursor: zoom-in;
+  }
+
+  .paper__band {
+    height: 30px;
+    border-radius: 3px;
+    background: #1f5fa8;
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .paper__band i {
+    display: block;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.75);
+    border-radius: 2px;
+  }
+
+  .paper__band i:last-child {
+    width: 55%;
+  }
+
+  .paper :global(img) {
+    width: 100%;
+    margin: 4px 0;
+    border: 1px solid #e8ebef;
+  }
+
+  .paper > i {
+    display: block;
+    height: 2.5px;
+    background: #dde1e6;
+    border-radius: 2px;
+  }
+
+  .paper > i.s {
+    width: 62%;
+  }
+
+  .report__kind {
+    font-size: 12.5px;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  h3 {
+    font-size: 19.5px;
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+
+  .report__authors {
+    font-size: 13.5px;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  .report__authors b {
+    color: var(--heading);
+    font-weight: 600;
+  }
+
+  .report__doi {
+    font-size: 13.5px;
+    margin-bottom: 14px;
+  }
+
+  .links {
+    gap: 7px;
+  }
+
+  .toast {
+    font-size: 12.5px;
+    color: var(--accent);
+    align-self: center;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .toast:global(.show) {
+    opacity: 1;
+  }
+
+  @media (max-width: 520px) {
+    .report {
+      grid-template-columns: 1fr;
+    }
+
+    .paper {
+      width: 112px;
+    }
+  }
+</style>

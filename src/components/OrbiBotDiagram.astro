@@ -1,0 +1,148 @@
+---
+// OrbiBot V1's parts as a tappable stack: tap a part to light its links and read what it does.
+import { parts } from '../data/orbibot';
+
+interface Props {
+  figure?: { href: string; caption: string };
+}
+
+const { figure } = Astro.props;
+---
+
+<div class="diagram" data-diagram>
+  <div class="stack">
+    <div class="row">
+      <button class="node" data-part="dashboard">Browser dashboard<small>React · TypeScript</small></button>
+      <button class="node" data-part="agent">LLM agent<small>58 robot tools</small></button>
+    </div>
+    <div class="edge" data-edge="top">rosbridge · tool calls</div>
+    <div class="row">
+      <button class="node" data-part="ros">Raspberry Pi 5<small>ROS 2 Jazzy · 12 packages</small></button>
+      <button class="node side" data-part="lidar">RPLIDAR A1<small>laser scans</small></button>
+    </div>
+    <div class="edge" data-edge="mid">binary serial protocol</div>
+    <div class="row"><button class="node" data-part="firmware">STM32 firmware<small>FreeRTOS · written by me</small></button></div>
+    <div class="edge" data-edge="low">PWM · encoder counts</div>
+    <div class="row"><button class="node" data-part="wheels">Four mecanum wheels<small>geared DC motors · encoders</small></button></div>
+  </div>
+  <div class="explain" aria-live="polite">
+    <h4>Two computers, one split</h4>
+    <p>Everything with a deadline runs on the microcontroller; everything that needs a map, a model or a network runs on the Pi. Tap a part.</p>
+  </div>
+  {figure && <a class="figure-link" href={figure.href} data-full={figure.href} data-cap={figure.caption}>See the report's system diagram →</a>}
+  <script type="application/json" set:html={JSON.stringify(parts)} />
+</div>
+
+<script>
+  import type { Part } from '../data/orbibot';
+
+  document.querySelectorAll<HTMLElement>('[data-diagram]').forEach((diagram) => {
+    const parts = JSON.parse(diagram.querySelector('script[type="application/json"]')?.textContent ?? '{}') as Record<string, Part>;
+    const explain = diagram.querySelector('.explain')!;
+    const nodes = diagram.querySelectorAll<HTMLButtonElement>('.node');
+    nodes.forEach((node) =>
+      node.addEventListener('click', () => {
+        const part = parts[node.dataset.part ?? ''];
+        if (!part) return;
+        nodes.forEach((n) => n.classList.toggle('on', n === node));
+        diagram.querySelectorAll<HTMLElement>('.edge').forEach((e) => e.classList.toggle('on', part.edges.includes(e.dataset.edge ?? '')));
+        explain.replaceChildren(Object.assign(document.createElement('h4'), { textContent: part.title }), Object.assign(document.createElement('p'), { textContent: part.text }));
+      }),
+    );
+  });
+</script>
+
+<style>
+  .diagram {
+    flex: 1;
+    display: grid;
+    gap: 14px;
+    padding: 6px 4px;
+  }
+
+  .stack {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .row {
+    display: flex;
+    gap: 9px;
+  }
+
+  .node {
+    flex: 1;
+    text-align: left;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--heading);
+    border-radius: 11px;
+    padding: 9px 12px;
+    font: 600 13.5px/1.35 var(--sans);
+    cursor: pointer;
+    transition:
+      border-color 0.15s,
+      background 0.15s;
+  }
+
+  .node small {
+    display: block;
+    font-weight: 400;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .node:hover {
+    border-color: var(--accent-line);
+  }
+
+  .node:global(.on) {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  .node.side {
+    flex: 0 0 36%;
+  }
+
+  .edge {
+    text-align: center;
+    font-size: 12px;
+    color: var(--muted);
+    padding: 5px 0;
+  }
+
+  .edge::before {
+    content: '↕ ';
+  }
+
+  .edge:global(.on) {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .explain {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 112px;
+  }
+
+  .explain :global(h4) {
+    font: 600 14.5px var(--sans);
+    color: var(--heading);
+    margin-bottom: 4px;
+  }
+
+  .explain :global(p) {
+    color: var(--muted);
+  }
+
+  .figure-link {
+    font-size: 13px;
+  }
+</style>

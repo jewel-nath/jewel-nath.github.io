@@ -1,0 +1,152 @@
+---
+// Groups of short silent clips: upright phone videos in phone frames, screen recordings wide.
+import type { Clip } from '../data/orbibot';
+
+interface Props {
+  groups: { title: string; upright: boolean; items: Clip[] }[];
+}
+
+const { groups } = Astro.props;
+---
+
+<div class="clips">
+  {
+    groups.map((group) => (
+      <div class="clips__group">
+        <h4 data-reveal>{group.title}</h4>
+        <ul class:list={['clips__grid', { 'clips__grid--wide': !group.upright }]}>
+          {group.items.map((item) => (
+            <li data-reveal data-hover-play>
+              <div class:list={['clip', { 'clip--wide': !group.upright }]}>
+                <video muted loop playsinline preload="none" poster={item.poster} aria-label={item.label}>
+                  <source src={item.src} type="video/mp4" />
+                </video>
+                <button class="play" data-play aria-label="Play video">
+                  <svg>
+                    <use href="#i-play" />
+                  </svg>
+                </button>
+              </div>
+              <p class="when num">{item.when}</p>
+              <p class="clip__cap">{item.caption}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .clips__group + .clips__group {
+    margin-top: 34px;
+  }
+
+  h4 {
+    font: 600 15px var(--sans);
+    color: var(--heading);
+    margin-bottom: 14px;
+  }
+
+  .clips__grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .clips__grid--wide {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .clip {
+    position: relative;
+    aspect-ratio: 9 / 16;
+    border-radius: 22px;
+    padding: 6px;
+    background: var(--frame);
+    box-shadow:
+      var(--photo-shadow),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  }
+
+  .clip--wide {
+    aspect-ratio: 960 / 474;
+    border-radius: 14px;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 17px;
+    background: #000;
+  }
+
+  .clip--wide video {
+    border-radius: 0;
+  }
+
+  .play {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 0;
+    background: var(--accent);
+    color: var(--on-accent);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    box-shadow: var(--glow);
+  }
+
+  .play :global(svg) {
+    width: 16px;
+    height: 16px;
+  }
+
+  .when {
+    margin-top: 10px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  .clip__cap {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 980px) {
+    .clips__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 640px) {
+    .clips__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .clips__grid--wide {
+      grid-template-columns: 1fr;
+    }
+
+    .clip {
+      border-radius: 16px;
+      padding: 4px;
+    }
+
+    video {
+      border-radius: 13px;
+    }
+  }
+</style>

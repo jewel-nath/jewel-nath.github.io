@@ -1,0 +1,197 @@
+---
+// A large project card: the media in the "media" slot on one side, the words on the other.
+import type { Feature } from '../data/site';
+
+interface Props {
+  feature: Feature;
+  reverse?: boolean;
+}
+
+const { feature, reverse = false } = Astro.props;
+---
+
+<article class:list={['feature', { reverse }]} id={feature.id} data-glow data-reveal aria-labelledby={`${feature.id}-name`}>
+  <div class="feature__media">
+    <slot name="media" />
+  </div>
+  <div class="feature__body">
+    <div class="meta">
+      <span class="status">{feature.status}</span>
+      <span class="num">{feature.years}</span>
+      {feature.context && <span>{feature.context}</span>}
+    </div>
+    <h3 id={`${feature.id}-name`}>{feature.name}</h3>
+    <p class="feature__lead">{feature.lead}</p>
+    <p class="feature__part"><b>{feature.part.label}:</b> {feature.part.text}</p>
+    <dl class="stats num">
+      {
+        feature.stats.map((stat) => (
+          <div>
+            <dt>{stat.label}</dt>
+            <dd>{stat.value}</dd>
+          </div>
+        ))
+      }
+    </dl>
+    <ul class="tags">{feature.tags.map((tag) => <li>{tag}</li>)}</ul>
+    <div class="links feature__links">
+      {
+        feature.links.map((link) => (
+          <a class:list={['btn sm', { primary: link.primary }]} href={link.href}>
+            {!link.primary && link.icon && (
+              <svg class="ico">
+                <use href={`#i-${link.icon}`} />
+              </svg>
+            )}
+            {link.label}
+            {link.primary && link.icon && (
+              <svg class="ico">
+                <use href={`#i-${link.icon}`} />
+              </svg>
+            )}
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</article>
+
+<style>
+  .feature {
+    display: grid;
+    grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr);
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+    margin-bottom: 28px;
+    transition: border-color 0.2s;
+  }
+
+  .feature:hover {
+    border-color: var(--accent-line);
+  }
+
+  .feature__media {
+    padding: 14px;
+    border-right: 1px solid var(--border);
+    background: var(--bg-soft);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 0;
+  }
+
+  .reverse .feature__media {
+    order: 2;
+    border-right: 0;
+    border-left: 1px solid var(--border);
+  }
+
+  .feature__body {
+    padding: 34px 34px 30px;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .feature__body .meta {
+    margin-bottom: 12px;
+  }
+
+  h3 {
+    font-size: 36px;
+    margin-bottom: 12px;
+  }
+
+  .feature__lead {
+    margin-bottom: 14px;
+  }
+
+  .feature__part {
+    margin-bottom: 20px;
+    font-size: 14.5px;
+    color: var(--muted);
+  }
+
+  .feature__part b {
+    color: var(--heading);
+    font-weight: 600;
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    padding: 18px 0;
+    margin: 0 0 18px;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .stats div {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+  }
+
+  .stats dt {
+    font-size: 12.5px;
+    line-height: 1.4;
+    color: var(--muted);
+  }
+
+  .stats dd {
+    margin: 0 0 3px;
+    font: 500 30px var(--display);
+    letter-spacing: -0.015em;
+    color: var(--accent);
+  }
+
+  .tags {
+    margin-bottom: 24px;
+  }
+
+  .feature__links {
+    margin-top: auto;
+  }
+
+  @media (max-width: 900px) {
+    .feature,
+    .feature.reverse {
+      grid-template-columns: 1fr;
+    }
+
+    .feature__media,
+    .reverse .feature__media {
+      order: 0;
+      border: 0;
+      border-bottom: 1px solid var(--border);
+      padding: 10px;
+    }
+
+    .feature__body {
+      padding: 24px 20px 22px;
+    }
+
+    h3 {
+      font-size: 30px;
+    }
+
+    .stats dd {
+      font-size: 25px;
+    }
+  }
+
+  /* On a phone the tags repeat what the words say, so they go to keep the page short. */
+  @media (max-width: 560px) {
+    .tags {
+      display: none;
+    }
+
+    .stats {
+      margin-bottom: 22px;
+    }
+  }
+</style>

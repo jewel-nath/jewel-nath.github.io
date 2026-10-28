@@ -1,130 +1,964 @@
 ---
-import LidarScan from '../components/LidarScan.astro';
-import WorkEntry from '../components/WorkEntry.astro';
+import { Image } from 'astro:assets';
+import FeatureCard from '../components/FeatureCard.astro';
+import OrbiBotDiagram from '../components/OrbiBotDiagram.astro';
+import PhoneVideo from '../components/PhoneVideo.astro';
+import ProfileLinks from '../components/ProfileLinks.astro';
+import ReportCard from '../components/ReportCard.astro';
+import SkillList from '../components/SkillList.astro';
+import VideoCard from '../components/VideoCard.astro';
+import { architectureFigure } from '../data/orbibot';
+import {
+  awards,
+  buildLog,
+  cv,
+  education,
+  interests,
+  latest,
+  nikoFeature,
+  orbibotFeature,
+  orcid,
+  reports,
+  roles,
+  site,
+  skills,
+  smallProjects,
+  teamOsFeature,
+  videoProjects,
+} from '../data/site';
 import Base from '../layouts/Base.astro';
-import { buildLog, cv, earlierRobots, profiles, projects, roles, site, skills } from '../data/site';
+
+const [orbiFront, orbiSide] = orbibotFeature.photos;
 ---
 
 <Base>
-  <a class="skip" href="#main">Skip to content</a>
-
-  <header class="site-header wrap">
-    <a class="wordmark" href="/">jewelnath.dev</a>
-    <nav aria-label="Sections">
-      <ul>
-        <li><a href="#work">Work</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#build-log">Build log</a></li>
-        <li><a href={cv.href}>CV</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <main id="main">
-    <section class="hero wrap" aria-labelledby="name">
-      <div>
-        <h1 id="name">{site.name}</h1>
-        <p class="tagline">
-          {
-            site.headline.map((part, i) => (
-              <>
-                {i > 0 && <span class="tagline__sep" aria-hidden="true"> / </span>}
-                <span class="tagline__part">{part}</span>
-              </>
-            ))
-          }
-        </p>
-        <p class="lead">{site.lead}</p>
-        <div class="cv-actions">
-          <a class="button" href={cv.href}>View CV</a>
-          <a href={cv.href} download={cv.fileName}>Download PDF</a>
+  <section class="hero" id="intro" aria-labelledby="name">
+    <div>
+      <div class="who">
+        <div class="portrait">
+          <Image src={site.portrait.src} alt={site.portrait.alt} width={248} height={248} loading="eager" />
         </div>
-        <ul class="link-row">
-          {profiles.map((profile) => <li><a href={profile.href}>{profile.label}</a></li>)}
-        </ul>
+        <div>
+          <h1 id="name">{site.name}</h1>
+          <p class="place"><svg class="ico"><use href="#i-pin"></use></svg>{site.location}</p>
+        </div>
       </div>
-      <LidarScan />
-    </section>
-
-    <section class="roles wrap" aria-labelledby="roles-title">
-      <h2 id="roles-title" class="visually-hidden">Where I work now</h2>
-      {
-        roles.map((role) => (
-          <div class="role">
-            <h3>{role.place}</h3>
-            <p>
-              <span class="role__title">{role.title}</span>
-              <br />
-              <span class="role__when">{role.when}</span>
-              {role.earlier && (
-                <>
-                  <br />
-                  <span class="role__when">{role.earlier}</span>
-                </>
-              )}
-            </p>
-            <p>{role.text}</p>
-          </div>
-        ))
-      }
-    </section>
-
-    <section id="work" class="section wrap" aria-labelledby="work-title">
-      <h2 id="work-title">Work</h2>
-      {projects.map((project) => <WorkEntry project={project} />)}
-
-      <div class="earlier">
-        <h3>Earlier robots</h3>
-        <ul>
-          {
-            earlierRobots.map((robot) => (
-              <li>
-                <h4>
-                  {robot.name}
-                  <span class="earlier__years">{robot.years}</span>
-                </h4>
-                <p>{robot.text}</p>
-                <a class="earlier__link" href={robot.code} aria-label={`${robot.name} code on GitHub`}>Code on GitHub</a>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-    </section>
-
-    <section id="skills" class="section wrap" aria-labelledby="skills-title">
-      <h2 id="skills-title">Skills</h2>
-      <p class="section__intro">Each one with the work that shows it.</p>
-      <dl class="skills">
+      <p class="role">
         {
-          skills.map((skill) => (
-            <div class="skill">
-              <dt>{skill.area}</dt>
-              <dd>{skill.skills}</dd>
-              <dd class="skill__shown">
-                Shown in {skill.href ? <a href={skill.href}>{skill.shownIn}</a> : skill.shownIn}
-              </dd>
-            </div>
+          site.headline.map((part, i) => (
+            <>
+              {i > 0 && <span aria-hidden="true">·</span>}
+              {part}
+            </>
           ))
         }
-      </dl>
-    </section>
+      </p>
+      <p class="lede">
+        {site.lead.before}<b>{site.lead.ai}</b>{site.lead.middle}<b>{site.lead.robots}</b>{site.lead.after}
+      </p>
+      <div class="actions">
+        <a class="btn primary" href={cv.href}><svg class="ico"><use href="#i-doc"></use></svg>View CV</a>
+        <a class="btn" href={cv.href} download={cv.fileName}><svg class="ico"><use href="#i-down"></use></svg>Download PDF</a>
+      </div>
+      <ProfileLinks />
+      <p class="label interests-label">What I work on</p>
+      <ul class="chips">{interests.map((interest) => <li>{interest}</li>)}</ul>
+    </div>
 
-    <section id="build-log" class="section build-log wrap" aria-labelledby="build-log-title">
-      <h2 id="build-log-title">Build log</h2>
-      <p>{buildLog.text}</p>
-      <ul class="link-row">
-        {buildLog.links.map((link) => <li><a href={link.href}>{link.label}</a></li>)}
-      </ul>
-    </section>
-  </main>
+    <aside class="latest" aria-labelledby="latest-h" data-glow>
+      <p class="label" id="latest-h">Latest</p>
+      <ol>
+        {
+          latest.map((update) => (
+            <li>
+              <span class="pill num">{update.when}</span>
+              <span set:html={update.html} />
+            </li>
+          ))
+        }
+      </ol>
+    </aside>
+  </section>
 
-  <footer class="site-footer wrap">
-    <p>{site.name}, {site.location}. The easiest way to reach me is <a href={profiles[0].href}>LinkedIn</a>.</p>
-    <ul>
-      <li><a href={cv.href}>CV</a></li>
-      {profiles.map((profile) => <li><a href={profile.href}>{profile.label}</a></li>)}
-      <li><a href={site.source}>This site's code</a></li>
-    </ul>
-  </footer>
+  <section class="section" id="work" aria-labelledby="work-h">
+    <div class="sec-head" data-reveal>
+      <p class="label">Featured work</p>
+      <h2 id="work-h">Robots and AI agents, built and shown</h2>
+      <p>Each project with its video, how it works, and the report or the live product.</p>
+    </div>
+
+    <FeatureCard feature={orbibotFeature.feature}>
+      <Fragment slot="media">
+        <div class="seg" role="tablist" aria-label="OrbiBot V1 media">
+          <button role="tab" aria-selected="true" aria-controls="orbi-media" id="orbi-media-tab">Photos &amp; video</button>
+          <button role="tab" aria-selected="false" aria-controls="orbi-how" id="orbi-how-tab">How it works</button>
+        </div>
+        <div class="mosaic mosaic--orbi" id="orbi-media" role="tabpanel" aria-labelledby="orbi-media-tab">
+          <button class="tile" data-full={orbiFront.src.src} data-cap={orbiFront.caption}>
+            <Image src={orbiFront.src} alt={orbiFront.alt} width={640} />
+          </button>
+          <button class="tile" data-full={orbiSide.src.src} data-cap={orbiSide.caption}>
+            <Image src={orbiSide.src} alt={orbiSide.alt} width={640} />
+            <span class="cap"><span>{orbiSide.caption}</span></span>
+          </button>
+          <PhoneVideo video={orbibotFeature.video} class="mosaic__phone" />
+        </div>
+        <div id="orbi-how" role="tabpanel" aria-labelledby="orbi-how-tab" hidden>
+          <OrbiBotDiagram figure={architectureFigure} />
+        </div>
+      </Fragment>
+    </FeatureCard>
+
+    <FeatureCard feature={nikoFeature.feature} reverse>
+      <div class="mosaic mosaic--niko" slot="media">
+        <button class="tile mosaic__wide" data-full={nikoFeature.photos.full.src.src} data-cap={nikoFeature.photos.full.caption}>
+          <Image src={nikoFeature.photos.full.src} alt={nikoFeature.photos.full.alt} width={900} />
+          <span class="cap"><span>{nikoFeature.photos.full.caption}</span></span>
+        </button>
+        <button class="tile" data-full={nikoFeature.gif.src} data-cap={nikoFeature.gif.caption}>
+          <img src={nikoFeature.gif.src} alt={nikoFeature.gif.alt} loading="lazy" data-gif />
+          <span class="cap"><span>{nikoFeature.gif.caption}</span></span>
+        </button>
+        <button class="tile" data-full={nikoFeature.photos.fitting.src.src} data-cap={nikoFeature.photos.fitting.caption}>
+          <Image src={nikoFeature.photos.fitting.src} alt={nikoFeature.photos.fitting.alt} width={480} style="object-position: 50% 30%" />
+          <span class="cap"><span>{nikoFeature.photos.fitting.caption}</span></span>
+        </button>
+      </div>
+    </FeatureCard>
+
+    <FeatureCard feature={teamOsFeature.feature}>
+      <div class="flow" slot="media" role="img" aria-label="How Team OS lets AI work safely: the in-app assistant, ChatGPT or Claude, through one tool layer of 158 tools, with confirm-first and approval-only tools, on the team's work">
+        <div class="fl">
+          <span class="fl__icon"><svg><use href="#i-spark"></use></svg></span>
+          <span><b>The models</b><small>the in-app assistant, or ChatGPT and Claude over MCP</small></span>
+        </div>
+        <div class="fl__arrow" aria-hidden="true">↓</div>
+        <div class="fl fl--hub">
+          <span class="fl__icon"><svg><use href="#i-plug"></use></svg></span>
+          <span><b>158 tools · one layer</b><small>for MCP and the in-app assistant; its own OAuth 2.1, with PKCE</small></span>
+        </div>
+        <div class="fl__arrow" aria-hidden="true">↓</div>
+        <div class="fl__split">
+          <div class="fl">
+            <span class="fl__icon"><svg><use href="#i-shield"></use></svg></span>
+            <span><b>33 confirm-first</b><small>the person says yes</small></span>
+          </div>
+          <div class="fl">
+            <span class="fl__icon"><svg><use href="#i-shield"></use></svg></span>
+            <span><b>8 money tools</b><small>over MCP, a person approves</small></span>
+          </div>
+        </div>
+        <div class="fl__arrow" aria-hidden="true">↓</div>
+        <div class="fl">
+          <span class="fl__icon"><svg><use href="#i-cpu"></use></svg></span>
+          <span><b>The team's work</b><small>tasks, people, time and expenses, under the user's own permissions</small></span>
+        </div>
+      </div>
+    </FeatureCard>
+  </section>
+
+  <section class="section" id="reports" aria-labelledby="reports-h">
+    <div class="sec-head" data-reveal>
+      <p class="label">Research</p>
+      <h2 id="reports-h">Technical reports</h2>
+      <p>Each one is written from the project's own code and media, with its diagrams, and has a DOI.</p>
+    </div>
+    <div class="reports">{reports.map((report) => <ReportCard report={report} />)}</div>
+    <p class="orcid-note">
+      <svg class="ico"><use href="#i-orcid"></use></svg>Full record on <a href={orcid.href}>ORCID {orcid.id}</a>
+    </p>
+  </section>
+
+  <section class="section" id="projects" aria-labelledby="projects-h">
+    <div class="sec-head" data-reveal>
+      <p class="label">More projects</p>
+      <h2 id="projects-h">Earlier robots and tools</h2>
+    </div>
+    <div class="video-cards">{videoProjects.map((project) => <VideoCard project={project} />)}</div>
+    <div class="small-cards">
+      {
+        smallProjects.map((project) => (
+          <article class="scard" data-glow data-reveal>
+            <span class="scard__icon">
+              <svg>
+                <use href={`#i-${project.icon}`} />
+              </svg>
+            </span>
+            <h3>{project.name}</h3>
+            <div class="meta">
+              <span class="status">{project.status}</span>
+              <span class="num">{project.years}</span>
+            </div>
+            <p>{project.text}</p>
+            <a class="scard__more" href={project.link.href}>
+              {project.link.label} →
+            </a>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section" id="skills" aria-labelledby="skills-h">
+    <div class="sec-head" data-reveal>
+      <p class="label">Skills</p>
+      <h2 id="skills-h">What I work with, and where it shows</h2>
+    </div>
+    <div data-reveal>
+      <SkillList skills={skills.slice(0, 6)} />
+      <details class="more-skills">
+        <summary>Show {skills.length - 6} more</summary>
+        <SkillList skills={skills.slice(6)} />
+      </details>
+    </div>
+  </section>
+
+  <section class="section" id="experience" aria-labelledby="experience-h">
+    <div class="sec-head" data-reveal>
+      <p class="label">Experience</p>
+      <h2 id="experience-h">Where I work and have worked</h2>
+    </div>
+    <div class="exp">
+      <ol class="timeline">
+        {
+          roles.map((role) => (
+            <li data-reveal>
+              <p class="when num">{role.when}</p>
+              <h3>{role.title}</h3>
+              <p class="org">{role.place}</p>
+              <p>{role.text}</p>
+              {role.earlier && <p class="earlier">{role.earlier}</p>}
+            </li>
+          ))
+        }
+      </ol>
+      <div>
+        <div class="side-card" data-glow data-reveal>
+          <p class="label">Education</p>
+          <div class="award">
+            <span class="award__icon"><svg><use href="#i-cap"></use></svg></span>
+            <div>
+              <p class="when num">{education.when}</p>
+              <h3>{education.degree}</h3>
+              <p>{education.place}</p>
+            </div>
+          </div>
+        </div>
+        <div class="side-card" data-glow data-reveal>
+          <p class="label">Awards</p>
+          {
+            awards.map((award) => (
+              <div class="award">
+                <span class="award__icon">
+                  <svg>
+                    <use href="#i-trophy" />
+                  </svg>
+                </span>
+                <div>
+                  <p class="when num">{award.when}</p>
+                  <h3>{award.title}</h3>
+                  <p>{award.detail}</p>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta" aria-labelledby="cta-h" data-reveal>
+    <h2 id="cta-h">Let's build something together</h2>
+    <p>I'm glad to talk about AI agents, automation or robotics. The quickest way to reach me is a message on LinkedIn.</p>
+    <div class="actions">
+      <a class="btn primary" href="https://www.linkedin.com/in/jewelnath/"><svg class="ico"><use href="#i-in"></use></svg>Message me on LinkedIn</a>
+      <a class="btn" href={cv.href}><svg class="ico"><use href="#i-doc"></use></svg>View CV</a>
+    </div>
+    <p class="cta__log">
+      {buildLog.text}
+      {
+        buildLog.links.map((link, i) => (
+          <>
+            {i > 0 && ' · '}
+            <a href={link.href}>{link.label}</a>
+          </>
+        ))
+      }
+    </p>
+  </section>
 </Base>
+
+<style>
+  /* Hero */
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
+    gap: 44px;
+    padding: 64px 0 72px;
+    align-items: start;
+  }
+
+  .who {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 22px;
+  }
+
+  .portrait {
+    width: 124px;
+    height: 124px;
+    border-radius: 50%;
+    flex: none;
+    padding: 4px;
+    background: conic-gradient(from 210deg, var(--accent), var(--accent-line), var(--accent));
+    box-shadow: var(--photo-shadow);
+  }
+
+  .portrait :global(img) {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--bg);
+  }
+
+  h1 {
+    font-size: clamp(40px, 5.8vw, 64px);
+    line-height: 1.05;
+  }
+
+  .place {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--muted);
+    font-size: 14.5px;
+    margin-top: 6px;
+  }
+
+  .place .ico {
+    width: 15px;
+    height: 15px;
+  }
+
+  .role {
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--heading);
+    margin-bottom: 10px;
+  }
+
+  .role span {
+    color: var(--accent);
+    padding: 0 6px;
+  }
+
+  .lede {
+    font-size: 19px;
+    line-height: 1.6;
+    margin-bottom: 26px;
+    max-width: 34em;
+  }
+
+  .lede b {
+    color: var(--heading);
+    font-weight: 600;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  .interests-label {
+    margin-top: 26px;
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .chips li {
+    font-size: 13px;
+    padding: 4px 11px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--heading);
+  }
+
+  .latest {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 22px 22px 14px;
+    box-shadow: var(--card-shadow);
+  }
+
+  .latest .label {
+    margin-bottom: 6px;
+  }
+
+  .latest ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .latest li {
+    display: grid;
+    grid-template-columns: 92px 1fr;
+    gap: 12px;
+    padding: 12px 0;
+    border-top: 1px solid var(--border);
+    font-size: 14.5px;
+    line-height: 1.55;
+  }
+
+  .latest li:first-child {
+    border-top: 0;
+  }
+
+  .latest :global(b) {
+    color: var(--heading);
+    font-weight: 600;
+  }
+
+  .pill {
+    align-self: start;
+    justify-self: start;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 2px 9px;
+    border-radius: 7px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 900px) {
+    .hero {
+      grid-template-columns: 1fr;
+      gap: 36px;
+      padding: 32px 0 52px;
+    }
+
+    .who {
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .portrait {
+      width: 84px;
+      height: 84px;
+      padding: 3px;
+    }
+
+    .lede {
+      font-size: 17.5px;
+      margin-bottom: 20px;
+    }
+  }
+
+  /* Featured media */
+  .seg {
+    display: inline-flex;
+    align-self: flex-start;
+    gap: 3px;
+    padding: 3px;
+    border-radius: 11px;
+    background: var(--card);
+    border: 1px solid var(--border);
+  }
+
+  .seg button {
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    font: 600 13px var(--sans);
+    padding: 6px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  .seg button[aria-selected='true'] {
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+
+  [role='tabpanel'][hidden] {
+    display: none;
+  }
+
+  .mosaic {
+    display: grid;
+    gap: 10px;
+    flex: 1;
+  }
+
+  .mosaic--orbi {
+    grid-template-columns: 1.2fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    aspect-ratio: 1.14 / 1;
+  }
+
+  .mosaic--orbi :global(.mosaic__phone) {
+    grid-row: 1 / 3;
+    grid-column: 2;
+  }
+
+  .mosaic--niko {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1.25fr 1fr;
+    aspect-ratio: 1.14 / 1;
+  }
+
+  .mosaic__wide {
+    grid-column: 1 / 3;
+  }
+
+  .tile {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--card-2);
+    border: 0;
+    padding: 0;
+    cursor: zoom-in;
+    box-shadow: var(--photo-shadow);
+    min-height: 0;
+  }
+
+  .tile :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .tile:hover :global(img) {
+    transform: scale(1.035);
+  }
+
+  .cap {
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    font-size: 12px;
+    line-height: 1.35;
+    color: #f3efe6;
+    text-align: left;
+  }
+
+  .cap span {
+    background: rgba(10, 11, 13, 0.62);
+    backdrop-filter: blur(4px);
+    padding: 3px 9px;
+    border-radius: 7px;
+  }
+
+  /* Team OS flow */
+  .flow {
+    flex: 1;
+    border-radius: 14px;
+    padding: 26px 22px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background:
+      radial-gradient(120% 80% at 80% 0%, var(--accent-soft), transparent 60%),
+      var(--card);
+    border: 1px solid var(--border);
+  }
+
+  .flow::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(var(--border) 1px, transparent 1px);
+    background-size: 18px 18px;
+    opacity: 0.55;
+    pointer-events: none;
+  }
+
+  .fl {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 11px 14px;
+  }
+
+  .fl__icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    display: grid;
+    place-items: center;
+    background: var(--accent-soft);
+    color: var(--accent);
+    flex: none;
+  }
+
+  .fl__icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .fl b {
+    display: block;
+    color: var(--heading);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .fl small {
+    color: var(--muted);
+    font-size: 12.5px;
+  }
+
+  .fl--hub {
+    border-color: var(--accent-line);
+    box-shadow: var(--glow);
+  }
+
+  .fl__arrow {
+    position: relative;
+    height: 22px;
+    display: grid;
+    place-items: center;
+    color: var(--accent);
+    font-size: 14px;
+  }
+
+  .fl__split {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 9px;
+  }
+
+  @media (max-width: 520px) {
+    .fl__split {
+      grid-template-columns: 1fr;
+    }
+
+    .flow {
+      padding: 18px 14px;
+    }
+  }
+
+  /* Reports */
+  .reports {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+  }
+
+  .orcid-note {
+    margin-top: 18px;
+    font-size: 14.5px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .orcid-note .ico {
+    color: var(--accent);
+  }
+
+  @media (max-width: 980px) {
+    .reports {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* More projects */
+  .video-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+    margin-bottom: 22px;
+  }
+
+  .small-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  .scard {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px 18px 18px;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.2s;
+  }
+
+  .scard:hover {
+    border-color: var(--accent-line);
+  }
+
+  .scard__icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    display: grid;
+    place-items: center;
+    margin-bottom: 14px;
+  }
+
+  .scard__icon svg {
+    width: 19px;
+    height: 19px;
+  }
+
+  .scard h3 {
+    font-size: 19px;
+    margin-bottom: 6px;
+  }
+
+  .scard .meta {
+    margin-bottom: 8px;
+    font-size: 12.5px;
+  }
+
+  .scard p {
+    margin-bottom: 14px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .scard__more {
+    margin-top: auto;
+    font-size: 13.5px;
+    font-weight: 600;
+  }
+
+  @media (max-width: 980px) {
+    .video-cards {
+      grid-template-columns: 1fr;
+    }
+
+    .small-cards {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .small-cards {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Skills */
+  .more-skills summary {
+    display: inline-flex;
+    margin-top: 16px;
+    padding: 8px 14px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--heading);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .more-skills summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .more-skills summary:hover {
+    border-color: var(--accent-line);
+  }
+
+  .more-skills[open] summary {
+    display: none;
+  }
+
+  /* Experience */
+  .exp {
+    display: grid;
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+    gap: 40px;
+  }
+
+  .timeline {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: linear-gradient(var(--accent-line), var(--border));
+  }
+
+  .timeline li {
+    position: relative;
+    padding: 0 0 30px 36px;
+  }
+
+  .timeline li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 6px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 3px solid var(--accent);
+  }
+
+  .timeline li:last-child {
+    padding-bottom: 0;
+  }
+
+  .when {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  .timeline h3 {
+    font-size: 22px;
+    margin: 2px 0;
+  }
+
+  .org {
+    font-size: 14.5px;
+    color: var(--heading);
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+
+  .timeline p {
+    font-size: 15px;
+  }
+
+  .earlier {
+    font-size: 13.5px;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+
+  .side-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: var(--card-shadow);
+    margin-bottom: 18px;
+  }
+
+  .side-card .label {
+    color: var(--accent);
+  }
+
+  .side-card h3 {
+    font-size: 20px;
+    margin-bottom: 2px;
+  }
+
+  .side-card p {
+    font-size: 14.5px;
+  }
+
+  .award {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .award__icon {
+    width: 38px;
+    height: 38px;
+    flex: none;
+    border-radius: 10px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    display: grid;
+    place-items: center;
+  }
+
+  .award__icon svg {
+    width: 19px;
+    height: 19px;
+  }
+
+  @media (max-width: 900px) {
+    .exp {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+  }
+
+  /* Closing call to action */
+  .cta {
+    margin: 8px 0 72px;
+    padding: 48px 44px;
+    border-radius: 24px;
+    border: 1px solid var(--accent-line);
+    text-align: center;
+    background:
+      radial-gradient(80% 120% at 50% 0%, var(--accent-soft), transparent 70%),
+      var(--card);
+    box-shadow: var(--card-shadow);
+  }
+
+  .cta h2 {
+    font-size: clamp(28px, 3.6vw, 40px);
+    margin-bottom: 10px;
+  }
+
+  .cta > p {
+    margin: 0 auto 24px;
+    max-width: 34em;
+    color: var(--muted);
+  }
+
+  .cta .actions {
+    justify-content: center;
+    margin: 0;
+  }
+
+  .cta .cta__log {
+    margin: 28px auto 0;
+    font-size: 14px;
+  }
+
+  @media (max-width: 600px) {
+    .cta {
+      padding: 34px 20px;
+      margin-bottom: 52px;
+    }
+  }
+</style>

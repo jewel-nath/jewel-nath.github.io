@@ -1,0 +1,112 @@
+---
+// An upright video in a phone-shaped frame, so it is never letterboxed in a wide box.
+import type { Video } from '../data/site';
+
+interface Props {
+  video: Video;
+  class?: string;
+}
+
+const { video, class: className } = Astro.props;
+---
+
+<div class:list={['phone', className]}>
+  <video muted loop playsinline preload="none" poster={video.poster} aria-label={video.label}>
+    <source src={video.src} type="video/mp4" />
+  </video>
+  {video.caption && <span class="phone__cap"><span>{video.caption}</span></span>}
+  <button class="play" data-play aria-label="Play video"><svg><use href="#i-play"></use></svg></button>
+</div>
+
+<style>
+  .phone {
+    position: relative;
+    border-radius: 26px;
+    background: var(--frame);
+    padding: 7px;
+    box-shadow:
+      var(--photo-shadow),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  }
+
+  .phone::before {
+    content: '';
+    position: absolute;
+    top: 13px;
+    left: 33%;
+    width: 34%;
+    height: 5px;
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.65);
+    z-index: 1;
+  }
+
+  video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    background: #000;
+  }
+
+  .phone__cap {
+    position: absolute;
+    left: 16px;
+    right: 70px;
+    bottom: 16px;
+    font-size: 12px;
+    line-height: 1.35;
+    color: #f3efe6;
+  }
+
+  .phone__cap span {
+    background: rgba(10, 11, 13, 0.62);
+    backdrop-filter: blur(4px);
+    padding: 3px 9px;
+    border-radius: 7px;
+  }
+
+  .play {
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 0;
+    background: var(--accent);
+    color: var(--on-accent);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    box-shadow: var(--glow);
+    z-index: 2;
+  }
+
+  .play :global(svg) {
+    width: 18px;
+    height: 18px;
+  }
+
+  @media (max-width: 900px) {
+    .phone {
+      border-radius: 20px;
+      padding: 5px;
+    }
+
+    video {
+      border-radius: 15px;
+    }
+
+    .phone__cap {
+      display: none;
+    }
+
+    .play {
+      right: 12px;
+      bottom: 12px;
+      width: 40px;
+      height: 40px;
+    }
+  }
+</style>

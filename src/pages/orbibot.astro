@@ -1,0 +1,731 @@
+---
+import { Image } from 'astro:assets';
+import ClipGallery from '../components/ClipGallery.astro';
+import OrbiBotDiagram from '../components/OrbiBotDiagram.astro';
+import PhoneVideo from '../components/PhoneVideo.astro';
+import ReportCard from '../components/ReportCard.astro';
+import { architectureFigure, intro, report, shows, v1, v2, versions } from '../data/orbibot';
+import { reports } from '../data/site';
+import Base from '../layouts/Base.astro';
+
+const v1Report = reports.find((r) => r.doi === report.doi)!;
+---
+
+<Base title="OrbiBot: my robot, from a welded frame to an AI agent · Jewel Nath" description={intro.lead}>
+  <section class="intro" id="top" aria-labelledby="title">
+    <a class="back" href="/">← Home</a>
+    <h1 id="title">{intro.title}</h1>
+    <p class="intro__lead">{intro.lead}</p>
+    <p class="meta"><span class="num">{intro.years}</span><span>My part: {intro.role}</span></p>
+    <nav class="stepper" aria-label="Versions">
+      {
+        versions.map((version) => (
+          <a href={`#${version.id}`}>
+            <b>{version.name}</b>
+            <span class="status">{version.status}</span>
+            <span class="num">{version.when}</span>
+          </a>
+        ))
+      }
+    </nav>
+    <div class="shows" data-glow>
+      <p class="label">What it shows</p>
+      <dl>
+        {
+          shows.map((fact) => (
+            <div>
+              <dt>{fact.label}</dt>
+              <dd>{fact.value}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <section class="section" id="v1" aria-labelledby="v1-h">
+    <div class="sec-head" data-reveal>
+      <p class="label">V1 · Built and driven</p>
+      <h2 id="v1-h">The robot I built</h2>
+      <p>{v1.text}</p>
+    </div>
+
+    <div class="v1-hero" data-reveal>
+      <button class="tile" data-full={v1.hero.src.src} data-cap={v1.hero.caption}>
+        <Image src={v1.hero.src} alt={v1.hero.alt} width={960} densities={[1, 2]} loading="eager" />
+        <span class="cap"><span>{v1.hero.caption}</span></span>
+      </button>
+      <PhoneVideo video={v1.video} />
+    </div>
+
+    <div class="two-col">
+      <div class="datasheet card" data-glow data-reveal>
+        <p class="label">Datasheet</p>
+        <dl>
+          {
+            v1.facts.map((fact) => (
+              <div>
+                <dt>{fact.label}</dt>
+                <dd>{fact.value}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+      <div class="card how" data-glow data-reveal>
+        <p class="label">How it works</p>
+        <OrbiBotDiagram figure={architectureFigure} />
+      </div>
+    </div>
+
+    <h3 class="sub" data-reveal>What I wrote</h3>
+    <div class="wrote">
+      {
+        v1.wrote.map((item) => (
+          <article class="card wrote__item" data-glow data-reveal>
+            <h4>{item.title}</h4>
+            <p>{item.text}</p>
+          </article>
+        ))
+      }
+    </div>
+
+    <h3 class="sub" id="v1-videos" data-reveal>In video</h3>
+    <p class="note" data-reveal>Short silent clips from the build log. Tap one to play it.</p>
+    <ClipGallery groups={v1.clips} />
+
+    <h3 class="sub" data-reveal>On the bench</h3>
+    <p class="note" data-reveal>{v1.bench.note}</p>
+    <dl class="bench num" data-reveal>
+      {
+        v1.bench.results.map((result) => (
+          <div class="card">
+            <dt>{result.label}</dt>
+            <dd>{result.value}</dd>
+          </div>
+        ))
+      }
+    </dl>
+
+    <h3 class="sub" data-reveal>The build, in photos</h3>
+    <ol class="timeline-grid">
+      {
+        v1.timeline.map((photo) => (
+          <li data-reveal>
+            <button class="tile" data-full={photo.src.src} data-cap={`${photo.when}: ${photo.caption}`}>
+              <Image src={photo.src} alt={photo.alt} width={480} densities={[1, 2]} />
+            </button>
+            <p class="when num">{photo.when}</p>
+            <p>{photo.caption}</p>
+          </li>
+        ))
+      }
+    </ol>
+
+    <h3 class="sub" data-reveal>What I learned</h3>
+    <div class="lessons">
+      {
+        v1.lessons.map((lesson) => (
+          <article class="card lesson" data-glow data-reveal>
+            <h4>{lesson.title}</h4>
+            <p>{lesson.text}</p>
+          </article>
+        ))
+      }
+    </div>
+
+    <h3 class="sub" data-reveal>The report</h3>
+    <ReportCard report={v1Report} />
+    <p class="code-link"><a href={report.code}>V1's code and documentation on GitHub →</a></p>
+  </section>
+
+  <section class="section" id="v2" aria-labelledby="v2-h">
+    <div class="sec-head" data-reveal>
+      <p class="label">V2 · Designed, then parked</p>
+      <h2 id="v2-h">A lighter platform, on paper</h2>
+      <p>{v2.why}</p>
+    </div>
+
+    <div class="v2-hero" data-reveal>
+      <figure class="turntable">
+        <div class="turntable__frame">
+          <video muted loop playsinline preload="none" poster={v2.turntable.poster} aria-label={v2.turntable.label}>
+            <source src={v2.turntable.src} type="video/mp4" />
+          </video>
+          <button class="play" data-play aria-label="Play video"><svg><use href="#i-play"></use></svg></button>
+        </div>
+        <figcaption>{v2.turntable.caption}</figcaption>
+      </figure>
+    </div>
+
+    <div class="two-col">
+      <div class="datasheet card" data-glow data-reveal>
+        <p class="label">Datasheet, as designed</p>
+        <dl>
+          {
+            v2.facts.map((fact) => (
+              <div>
+                <dt>{fact.label}</dt>
+                <dd>{fact.value}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+      <div class="card progress" data-glow data-reveal>
+        <p class="label">Where the board stopped</p>
+        <ul>
+          {
+            v2.progress.map((step) => (
+              <li>
+                <div class="progress__head">
+                  <span>{step.label}</span>
+                  <span class="num">
+                    {step.done} of {step.total} {step.unit}
+                  </span>
+                </div>
+                <div class="bar" role="img" aria-label={`${step.done} of ${step.total} ${step.unit}`}>
+                  <span style={`width: ${(step.done / step.total) * 100}%`} />
+                </div>
+                <p>{step.note}</p>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="parked">{v2.parked}</p>
+      </div>
+    </div>
+
+    <h3 class="sub" data-reveal>The CAD, four ways</h3>
+    <div class="gallery gallery--4 gallery--views">
+      {
+        v2.views.map((view) => (
+          <figure data-reveal>
+            <button class="tile" data-full={view.src.src} data-cap={view.caption}>
+              <Image src={view.src} alt={view.alt} width={480} densities={[1, 2]} />
+            </button>
+            <figcaption>{view.caption}</figcaption>
+          </figure>
+        ))
+      }
+    </div>
+
+    <h3 class="sub" data-reveal>Its own controller board</h3>
+    <div class="gallery gallery--2">
+      {
+        v2.board.map((view) => (
+          <figure data-reveal>
+            <button class="tile" data-full={view.src.src} data-cap={view.caption}>
+              <Image src={view.src} alt={view.alt} width={640} densities={[1, 2]} />
+            </button>
+            <figcaption>{view.caption}</figcaption>
+          </figure>
+        ))
+      }
+    </div>
+    <div class="gallery gallery--4">
+      {
+        v2.sheets.map((sheet) => (
+          <figure data-reveal>
+            <button class="tile tile--paper" data-full={sheet.src.src} data-cap={`Schematic: ${sheet.caption}`}>
+              <Image src={sheet.src} alt={sheet.alt} width={360} densities={[1, 2]} />
+            </button>
+            <figcaption>{sheet.caption}</figcaption>
+          </figure>
+        ))
+      }
+    </div>
+    <p class="code-link"><a href={v2.schematicPdf}>The full schematic, as a PDF →</a></p>
+  </section>
+
+  <section class="cta" aria-labelledby="cta-h" data-reveal>
+    <h2 id="cta-h">More of my work</h2>
+    <p>Robot Niko, Team OS and the reports are on the home page.</p>
+    <div class="actions">
+      <a class="btn primary" href="/#work">See all the work</a>
+      <a class="btn" href="https://www.youtube.com/@jewelnathdev/playlists"><svg class="ico"><use href="#i-yt"></use></svg>The build log</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .intro {
+    padding: 40px 0 56px;
+  }
+
+  .back {
+    display: inline-block;
+    font-size: 14px;
+    margin-bottom: 18px;
+  }
+
+  h1 {
+    font-size: clamp(44px, 7vw, 72px);
+    line-height: 1.02;
+    margin-bottom: 14px;
+  }
+
+  .intro__lead {
+    font-size: 19px;
+    line-height: 1.6;
+    max-width: 40em;
+    margin-bottom: 12px;
+  }
+
+  .intro .meta {
+    margin-bottom: 26px;
+  }
+
+  .stepper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+
+  .stepper a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--muted);
+    font-size: 13.5px;
+    transition: border-color 0.15s;
+  }
+
+  .stepper a:hover {
+    border-color: var(--accent-line);
+    text-decoration: none;
+  }
+
+  .stepper b {
+    font: 500 22px var(--display);
+    color: var(--heading);
+  }
+
+  .shows {
+    background: var(--card);
+    border: 1px solid var(--accent-line);
+    border-radius: 18px;
+    padding: 22px 24px 8px;
+    box-shadow: var(--card-shadow);
+  }
+
+  .shows .label {
+    color: var(--accent);
+  }
+
+  .shows dl {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 36px;
+    margin: 0;
+  }
+
+  .shows dl div {
+    padding: 12px 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .shows dt {
+    font-weight: 600;
+    color: var(--heading);
+    font-size: 15px;
+  }
+
+  .shows dd {
+    margin: 2px 0 0;
+    font-size: 14.5px;
+  }
+
+  .sub {
+    font-size: 26px;
+    margin: 48px 0 18px;
+  }
+
+  .note {
+    color: var(--muted);
+    font-size: 14.5px;
+    margin: -8px 0 16px;
+  }
+
+  /* Pictures */
+  .tile {
+    position: relative;
+    display: block;
+    width: 100%;
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--card-2);
+    border: 0;
+    padding: 0;
+    cursor: zoom-in;
+    box-shadow: var(--photo-shadow);
+  }
+
+  .tile :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .tile:hover :global(img) {
+    transform: scale(1.03);
+  }
+
+  .tile--paper {
+    background: #fff;
+  }
+
+  .tile--paper :global(img) {
+    object-fit: contain;
+  }
+
+  .cap {
+    position: absolute;
+    left: 12px;
+    bottom: 12px;
+    font-size: 12.5px;
+    color: #f3efe6;
+  }
+
+  .cap span {
+    background: rgba(10, 11, 13, 0.62);
+    backdrop-filter: blur(4px);
+    padding: 3px 9px;
+    border-radius: 7px;
+  }
+
+  figure {
+    margin: 0;
+  }
+
+  figcaption {
+    font-size: 13.5px;
+    color: var(--muted);
+    margin-top: 8px;
+  }
+
+  .v1-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 2.2fr) minmax(0, 1fr);
+    gap: 16px;
+    align-items: stretch;
+    margin-bottom: 22px;
+  }
+
+  .v1-hero > .tile {
+    aspect-ratio: 4 / 3;
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+  }
+
+  .card {
+    padding: 22px 24px;
+  }
+
+  .datasheet dl {
+    margin: 0;
+  }
+
+  .datasheet dl div {
+    display: grid;
+    grid-template-columns: 7.5rem 1fr;
+    gap: 12px;
+    padding: 10px 0;
+    border-top: 1px solid var(--border);
+    font-size: 14.5px;
+  }
+
+  .datasheet dt {
+    color: var(--muted);
+  }
+
+  .datasheet dd {
+    margin: 0;
+    color: var(--heading);
+  }
+
+  .how {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .wrote,
+  .lessons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+
+  .lessons {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .wrote__item h4,
+  .lesson h4 {
+    font-size: 21px;
+    margin-bottom: 8px;
+  }
+
+  .wrote__item p,
+  .lesson p {
+    font-size: 15px;
+  }
+
+  .bench {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin: 0 0 28px;
+  }
+
+  .bench div {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+  }
+
+  .bench dt {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.45;
+  }
+
+  .bench dd {
+    margin: 0 0 4px;
+    font: 500 30px var(--display);
+    color: var(--accent);
+  }
+
+  .timeline-grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+
+  .timeline-grid .tile {
+    aspect-ratio: 4 / 3;
+    margin-bottom: 10px;
+  }
+
+  .timeline-grid p {
+    font-size: 14.5px;
+  }
+
+  .when {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  .code-link {
+    margin-top: 18px;
+    font-size: 14.5px;
+    font-weight: 500;
+  }
+
+  /* V2 */
+  .v2-hero {
+    max-width: 880px;
+    margin: 0 auto 26px;
+  }
+
+  .turntable__frame {
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #000;
+    box-shadow: var(--photo-shadow);
+    aspect-ratio: 16 / 9;
+  }
+
+  .turntable video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .play {
+    position: absolute;
+    right: 14px;
+    bottom: 14px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 0;
+    background: var(--accent);
+    color: var(--on-accent);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    box-shadow: var(--glow);
+  }
+
+  .play :global(svg) {
+    width: 17px;
+    height: 17px;
+  }
+
+  .progress ul {
+    list-style: none;
+    margin: 0 0 16px;
+    padding: 0;
+    display: grid;
+    gap: 16px;
+  }
+
+  .progress__head {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14.5px;
+    color: var(--heading);
+    margin-bottom: 6px;
+  }
+
+  .bar {
+    height: 8px;
+    border-radius: 999px;
+    background: var(--card-2);
+    overflow: hidden;
+  }
+
+  .bar span {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--accent);
+  }
+
+  .progress li p {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 5px;
+  }
+
+  .parked {
+    font-size: 14.5px;
+    border-top: 1px solid var(--border);
+    padding-top: 14px;
+  }
+
+  .gallery {
+    display: grid;
+    gap: 18px;
+    margin-bottom: 18px;
+  }
+
+  .gallery--2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .gallery--4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .gallery--4 .tile {
+    aspect-ratio: 1.414 / 1;
+  }
+
+  .gallery--2 .tile,
+  .gallery--views .tile {
+    aspect-ratio: 16 / 10;
+    background: #fff;
+  }
+
+  /* Closing card */
+  .cta {
+    margin: 8px 0 72px;
+    padding: 44px;
+    border-radius: 24px;
+    border: 1px solid var(--accent-line);
+    text-align: center;
+    background:
+      radial-gradient(80% 120% at 50% 0%, var(--accent-soft), transparent 70%),
+      var(--card);
+    box-shadow: var(--card-shadow);
+  }
+
+  .cta h2 {
+    font-size: clamp(28px, 3.6vw, 38px);
+    margin-bottom: 10px;
+  }
+
+  .cta p {
+    color: var(--muted);
+    margin-bottom: 22px;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  @media (max-width: 980px) {
+    .bench {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .lessons,
+    .timeline-grid,
+    .gallery--4 {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 760px) {
+    .shows dl,
+    .two-col,
+    .wrote,
+    .gallery--2 {
+      grid-template-columns: 1fr;
+    }
+
+    .v1-hero {
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 10px;
+    }
+
+    .card {
+      padding: 18px;
+    }
+
+    .datasheet dl div {
+      grid-template-columns: 6rem 1fr;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .lessons,
+    .timeline-grid,
+    .bench {
+      grid-template-columns: 1fr;
+    }
+
+    .v1-hero {
+      grid-template-columns: 1fr;
+    }
+
+    .v1-hero :global(.phone) {
+      width: 62%;
+      margin: 0 auto;
+    }
+
+    .cta {
+      padding: 32px 20px;
+    }
+  }
+</style>

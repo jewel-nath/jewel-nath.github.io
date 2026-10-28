@@ -1,0 +1,36 @@
+---
+// One picture viewer for the whole page. Anything with data-full="url" opens in it, captioned by data-cap.
+---
+
+<dialog id="viewer" class="viewer" aria-label="Picture">
+  <img alt="" />
+  <p></p>
+</dialog>
+
+<style>
+  .viewer {
+    border: 0;
+    padding: 0;
+    background: transparent;
+    max-width: 94vw;
+    max-height: 92vh;
+  }
+
+  .viewer::backdrop {
+    background: rgba(6, 7, 9, 0.88);
+  }
+
+  .viewer img {
+    max-width: 94vw;
+    max-height: 84vh;
+    border-radius: 12px;
+    background: #fff;
+  }
+
+  .viewer p {
+    color: #e8e4da;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 10px;
+  }
+</style>

@@ -1,7 +1,12 @@
 ---
-import '@fontsource-variable/archivo/wdth.css';
+import '@fontsource-variable/newsreader/opsz.css';
+import '@fontsource-variable/inter';
+import '@fontsource-variable/geist';
 import '../styles/global.css';
-import archivoLatin from '@fontsource-variable/archivo/files/archivo-latin-wdth-normal.woff2?url';
+import Icons from '../components/Icons.astro';
+import Lightbox from '../components/Lightbox.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import SiteHeader from '../components/SiteHeader.astro';
 import { profiles, site } from '../data/site';
 
 interface Props {
@@ -26,7 +31,7 @@ const person = {
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -34,9 +39,7 @@ const person = {
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="preload" href={archivoLatin} as="font" type="font/woff2" crossorigin />
-    <meta name="theme-color" content="#f2f4f5" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#182028" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#0f1114" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={site.name} />
     <meta property="og:url" content={canonical} />
@@ -49,8 +52,25 @@ const person = {
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@jewelnathdev" />
     <script type="application/ld+json" set:html={JSON.stringify(person)} />
+    <script is:inline>
+      // Dark by default; a saved choice wins. Runs before paint so the page never flashes.
+      try {
+        const saved = localStorage.getItem('theme');
+        if (saved === 'light' || saved === 'dark') document.documentElement.dataset.theme = saved;
+      } catch (e) {}
+    </script>
   </head>
   <body>
-    <slot />
+    <Icons />
+    <a class="skip" href="#main">Skip to content</a>
+    <SiteHeader />
+    <main id="main" class="wrap">
+      <slot />
+    </main>
+    <SiteFooter />
+    <Lightbox />
+    <script>
+      import '../scripts/site';
+    </script>
   </body>
 </html>

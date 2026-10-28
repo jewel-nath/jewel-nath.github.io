@@ -1,0 +1,39 @@
+---
+import ProfileLinks from './ProfileLinks.astro';
+import { site } from '../data/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="foot">
+  <div class="wrap foot__row">
+    <ProfileLinks />
+    <p class="foot__fine">
+      © {year} {site.name} · <a href={site.source}>Source on GitHub</a>
+    </p>
+  </div>
+</footer>
+
+<style>
+  .foot {
+    border-top: 1px solid var(--border);
+    padding: 40px 0 56px;
+  }
+
+  .foot__row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .foot__row :global(.profiles) {
+    margin: 0;
+  }
+
+  .foot__fine {
+    font-size: 13px;
+    color: var(--muted);
+  }
+</style>

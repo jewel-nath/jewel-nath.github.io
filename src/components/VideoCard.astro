@@ -1,0 +1,123 @@
+---
+// A smaller project card led by a short silent clip, which previews on hover on a laptop.
+import type { VideoProject } from '../data/site';
+
+interface Props {
+  project: VideoProject;
+}
+
+const { project } = Astro.props;
+---
+
+<article class="vcard" data-glow data-reveal data-hover-play>
+  <div class="vcard__video">
+    <video muted loop playsinline preload="none" poster={project.video.poster} aria-label={project.video.label}>
+      <source src={project.video.src} type="video/mp4" />
+    </video>
+    <button class="play" data-play aria-label="Play video"><svg><use href="#i-play"></use></svg></button>
+  </div>
+  <div class="vcard__body">
+    <div class="meta"><span class="status">{project.status}</span><span class="num">{project.years}</span></div>
+    <h3>{project.name}</h3>
+    <p>{project.text}</p>
+    <ul class="tags">{project.tags.map((tag) => <li>{tag}</li>)}</ul>
+    <a class="vcard__more" href={project.code}>Code on GitHub →</a>
+  </div>
+</article>
+
+<style>
+  .vcard {
+    display: grid;
+    grid-template-columns: 40% minmax(0, 1fr);
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+    transition: border-color 0.2s;
+  }
+
+  .vcard:hover {
+    border-color: var(--accent-line);
+  }
+
+  .vcard__video {
+    position: relative;
+    background: #000;
+    min-height: 300px;
+  }
+
+  video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .play {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 0;
+    background: var(--accent);
+    color: var(--on-accent);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    box-shadow: var(--glow);
+  }
+
+  .play :global(svg) {
+    width: 16px;
+    height: 16px;
+  }
+
+  .vcard__body {
+    padding: 22px 22px 20px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .meta {
+    margin-bottom: 10px;
+  }
+
+  h3 {
+    font-size: 25px;
+    margin-bottom: 8px;
+  }
+
+  p {
+    margin-bottom: 14px;
+    font-size: 15px;
+  }
+
+  .tags {
+    margin-bottom: 16px;
+  }
+
+  .vcard__more {
+    margin-top: auto;
+    font-size: 13.5px;
+    font-weight: 600;
+  }
+
+  @media (max-width: 560px) {
+    .vcard {
+      grid-template-columns: 1fr;
+    }
+
+    .vcard__video {
+      min-height: 0;
+      aspect-ratio: 16 / 10;
+    }
+
+    .tags {
+      display: none;
+    }
+  }
+</style>

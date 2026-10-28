@@ -1,0 +1,84 @@
+---
+// One card per part of the system: the text beside its report figures.
+import { Image } from 'astro:assets';
+import type { Topic } from '../../data/project';
+
+interface Props {
+  topics: Topic[];
+}
+
+const { topics } = Astro.props;
+---
+
+{
+  topics.map((topic) => (
+    <article class="topic card" id={topic.id} data-glow data-reveal>
+      <div class="topic__text">
+        <h3>{topic.title}</h3>
+        {topic.text.map((paragraph) => (
+          <p>{paragraph}</p>
+        ))}
+      </div>
+      <div class:list={['topic__figs', { 'topic__figs--stack': !topic.sideBySide && topic.figures.length <= 2, 'topic__figs--side': topic.sideBySide }]}>
+        {topic.figures.map((figure) => (
+          <figure>
+            <button class="tile tile--paper" data-full={figure.src.src} data-cap={figure.caption}>
+              <Image src={figure.src} alt={figure.alt ?? figure.caption} width={640} densities={[1, 2]} />
+            </button>
+            <figcaption>{figure.caption}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </article>
+  ))
+}
+
+<style>
+  .topic {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+    gap: 28px;
+    margin-top: 22px;
+    scroll-margin-top: 90px;
+  }
+
+  .topic h3 {
+    font-size: 28px;
+    margin-bottom: 12px;
+  }
+
+  .topic p + p {
+    margin-top: 12px;
+  }
+
+  .topic__text p {
+    font-size: 15.5px;
+  }
+
+  .topic__figs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    align-content: start;
+  }
+
+  /* Three figures: the first across the top. One or two: stacked, unless side by side. */
+  .topic__figs figure:first-child,
+  .topic__figs--stack figure {
+    grid-column: 1 / -1;
+  }
+
+  .topic__figs--side {
+    align-items: center;
+  }
+
+  .topic__figs--side figure:first-child {
+    grid-column: auto;
+  }
+
+  @media (max-width: 860px) {
+    .topic {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

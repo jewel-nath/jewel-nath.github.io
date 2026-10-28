@@ -1,0 +1,47 @@
+---
+// The datasheet beside the report's system overview figure.
+import { Image } from 'astro:assets';
+import type { Fact, Figure } from '../../data/project';
+
+interface Props {
+  facts: Fact[];
+  overview: Figure;
+  label?: string;
+}
+
+const { facts, overview, label = 'The whole system' } = Astro.props;
+---
+
+<div class="two-col">
+  <div class="datasheet card" data-glow data-reveal>
+    <p class="label">Datasheet</p>
+    <dl>
+      {
+        facts.map((fact) => (
+          <div>
+            <dt>{fact.label}</dt>
+            <dd>{fact.value}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+  <figure class="card overview" data-glow data-reveal>
+    <p class="label">{label}</p>
+    <button class="tile tile--paper" data-full={overview.src.src} data-cap={overview.caption}>
+      <Image src={overview.src} alt={overview.alt ?? overview.caption} width={640} densities={[1, 2]} />
+    </button>
+    <figcaption>{overview.caption}. Tap to open it large.</figcaption>
+  </figure>
+</div>
+
+<style>
+  .overview {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .overview .tile {
+    margin: auto 0;
+  }
+</style>

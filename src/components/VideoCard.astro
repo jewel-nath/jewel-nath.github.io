@@ -21,7 +21,10 @@ const { project } = Astro.props;
     <h3>{project.name}</h3>
     <p>{project.text}</p>
     <ul class="tags">{project.tags.map((tag) => <li>{tag}</li>)}</ul>
-    <a class="vcard__more" href={project.code}>Code on GitHub →</a>
+    <p class="vcard__links">
+      <a class="vcard__more" href={project.page}>Project page →</a>
+      <a href={project.code}>Code on GitHub</a>
+    </p>
   </div>
 </article>
 
@@ -100,9 +103,15 @@ const { project } = Astro.props;
     margin-bottom: 16px;
   }
 
-  .vcard__more {
+  .vcard__links {
     margin-top: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 16px;
     font-size: 13.5px;
+  }
+
+  .vcard__more {
     font-weight: 600;
   }
 

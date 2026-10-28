@@ -1,0 +1,36 @@
+---
+// The report, a link to the code, and the closing card that leads to the next project.
+import { reports } from '../../data/site';
+import ReportCard from '../ReportCard.astro';
+
+interface Props {
+  doi: string;
+  // One line on the report: its pages, its figures, how it was checked.
+  about: string;
+  code: { href: string; label: string };
+  next: { title: string; text: string; href: string; label: string };
+}
+
+const { doi, about, code, next } = Astro.props;
+const report = reports.find((r) => r.doi === doi);
+if (!report) throw new Error(`No report with DOI ${doi} in src/data/site.ts`);
+---
+
+<section class="section" id="report" aria-labelledby="report-h">
+  <div class="sec-head" data-reveal>
+    <p class="label">The report</p>
+    <h2 id="report-h">Read the full design</h2>
+    <p>{about}</p>
+  </div>
+  <ReportCard report={report} />
+  <p class="code-link"><a href={code.href}>{code.label} →</a></p>
+</section>
+
+<section class="cta" aria-labelledby="cta-h" data-reveal>
+  <h2 id="cta-h">Next: {next.title}</h2>
+  <p>{next.text}</p>
+  <div class="actions">
+    <a class="btn primary" href={next.href}>{next.label}<svg class="ico"><use href="#i-arrow"></use></svg></a>
+    <a class="btn" href="/#work">All the work</a>
+  </div>
+</section>

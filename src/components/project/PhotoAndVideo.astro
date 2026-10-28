@@ -1,0 +1,59 @@
+---
+// A project's lead: one large photo beside an upright video in a phone frame.
+import { Image } from 'astro:assets';
+import type { Picture, Video } from '../../data/site';
+import PhoneVideo from '../PhoneVideo.astro';
+
+interface Props {
+  photo: Picture;
+  video: Video;
+}
+
+const { photo, video } = Astro.props;
+---
+
+<div class="lead-media" data-reveal>
+  <button class="tile" data-full={photo.src.src} data-cap={photo.caption}>
+    <Image src={photo.src} alt={photo.alt} width={960} densities={[1, 2]} loading="eager" />
+    {
+      photo.caption && (
+        <span class="cap">
+          <span>{photo.caption}</span>
+        </span>
+      )
+    }
+  </button>
+  <PhoneVideo video={video} />
+</div>
+
+<style>
+  .lead-media {
+    display: grid;
+    grid-template-columns: minmax(0, 2.2fr) minmax(0, 1fr);
+    gap: 16px;
+    align-items: stretch;
+    margin-bottom: 22px;
+  }
+
+  .lead-media > .tile {
+    aspect-ratio: 4 / 3;
+  }
+
+  @media (max-width: 760px) {
+    .lead-media {
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 10px;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .lead-media {
+      grid-template-columns: 1fr;
+    }
+
+    .lead-media :global(.phone) {
+      width: 62%;
+      margin: 0 auto;
+    }
+  }
+</style>

@@ -21,12 +21,13 @@ import servoMap from '../assets/robot-niko/robot-niko-servo-map.png';
 import softwareMap from '../assets/robot-niko/robot-niko-software-map.png';
 import timeline from '../assets/robot-niko/robot-niko-timeline.png';
 import voicePipeline from '../assets/robot-niko/robot-niko-voice-pipeline.png';
+import type { DatedPicture, Figure, Intro, Lesson, Team, Topic } from './project';
 import { clipsIn, type Fact, type Picture, type Video } from './site';
 
 const media = '/media/robot-niko';
 const clip = clipsIn(media);
 
-export const intro = {
+export const intro: Intro = {
   title: 'Robot Niko',
   status: 'Built',
   lead: 'A life-size, 3D-printed humanoid assistant, built in 2022 with my team at Quanta Robotics. It wakes to "Hey Niko", answers questions with a jaw that moves as it speaks, turns its head to follow a face, and greets the people it knows with a handshake.',
@@ -102,13 +103,21 @@ export const build = {
     { src: electronics, when: '4 Dec 2022', caption: 'Inside the back: the Raspberry Pi 4 between the two servo boards.', alt: "Close on the electronics in Niko's back: a Raspberry Pi 4 in the middle, a servo board on each side, servo leads labelled on tape." },
     { src: launchDay, when: '6 Dec 2022', caption: 'Launch day, with a camera on its chest and a screen at its base.', alt: 'Jewel in a Team NIKO shirt pointing at Niko in the lab.' },
     { src: btvInterview, when: '14 Dec 2022', caption: 'Interviewed beside Niko by Bangladesh Television.', alt: 'Jewel answering a BTV reporter beside Niko in the lab.' },
-  ] satisfies (Picture & { when: string })[],
-  timelineFigure: { src: timeline, caption: 'Niko in 2022, from the first work to the public launch (from the report)' },
+  ] satisfies DatedPicture[],
+  timelineFigure: {
+    src: timeline,
+    caption: 'Niko in 2022, from the first work to the public launch (from the report)',
+    alt: 'A timeline of Niko in 2022, from the first work to the public launch.',
+  } satisfies Figure,
 };
 
 export const how = {
   text: 'One Raspberry Pi 4 runs every program. It moves the servos through two PCA9685 boards, hears and speaks through a USB sound card, and sees through a USB camera on its chest.',
-  overview: { src: systemOverview, caption: 'System overview, from the Niko report' },
+  overview: {
+    src: systemOverview,
+    caption: 'System overview, from the Niko report',
+    alt: 'The system overview diagram: the Raspberry Pi, the two servo boards and 27 servos, and the voice and vision devices.',
+  } satisfies Figure,
   facts: [
     { label: 'Computer', value: 'Raspberry Pi 4, running Python, started by systemd' },
     { label: 'Servo boards', value: 'Two PCA9685 boards, 16 channels each, set to 60 Hz' },
@@ -162,23 +171,24 @@ export const how = {
       ],
       figures: [{ src: softwareMap, caption: 'The software: the voice program, the programs started on demand, and the modules they share' }],
     },
-  ],
+  ] satisfies Topic[],
 };
 
-export const team = {
+export const team: Team = {
   text: 'Niko was built by Quanta Robotics, the robotics team I co-founded at Comilla University, at the FabLab of the Deputy Commissioner’s Office in Cumilla. With the team, I 3D-printed and assembled its body; I tuned its 27 servos, planned its arm motions as servo sequences, and led its programming; most of the commits in its repository are mine.',
   // In the report's author order; I lead the list.
   members: ['Jewel Nath', 'Shanjit Mondol', 'Tousif Bin Parves', 'Md Mohiuddin Khan Mahin', 'Anik Chakraborty'],
-  launch: 'Niko was launched in public on 6 December 2022. Six news outlets reported it, and Bangladesh Television interviewed me beside it.',
+  note: 'Niko was launched in public on 6 December 2022. Six news outlets reported it, and Bangladesh Television interviewed me beside it.',
   credits: [
     { what: 'Body', text: 'InMoov, by Gaël Langevin (CC BY-NC 3.0)', href: 'https://inmoov.fr/' },
     { what: 'Voice program and installers', text: "started from Shivasiddharth's GassistPi (MIT, with two conditions)", href: 'https://github.com/shivasiddharth/GassistPi' },
     { what: 'Face recognition', text: "from the k-NN camera example in Adam Geitgey's face_recognition (MIT)", href: 'https://github.com/ageitgey/face_recognition' },
     { what: 'Service installer', text: "from Google's AIY projects, through GassistPi (Apache 2.0)", href: 'https://github.com/google/aiyprojects-raspbian' },
   ],
+  creditsNote: "Each file taken from another project keeps its own licence notice; Niko's own code is under the MIT licence.",
 };
 
-export const lessons = [
+export const lessons: Lesson[] = [
   {
     title: 'Open hardware shortens the road',
     text: 'Building on InMoov took a student team from a 3D model to a finished life-size humanoid in about four months, and left our effort for the software that makes it useful.',

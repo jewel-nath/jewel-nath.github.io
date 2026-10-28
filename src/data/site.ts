@@ -8,6 +8,8 @@ import orbiFront from '../assets/orbibot/v1/v1-2025-09-24-pi5-build-front.jpg';
 import orbiSide from '../assets/orbibot/v1/v1-2025-09-24-pi5-build-side.jpg';
 import orbiFigure from '../assets/reports/orbibot-v1-system-architecture.png';
 import nikoFigure from '../assets/reports/robot-niko-system-overview.png';
+import conveyFigure from '../assets/conveysort-arm/conveysort-arm-system-overview.png';
+import enviroFigure from '../assets/envirobot/envirobot-system-overview.png';
 
 export interface Link {
   label: string;
@@ -91,8 +93,8 @@ export interface Update {
 // Newest first. Short lines; a link only where there is something to read.
 export const latest: Update[] = [
   {
-    when: '28 Oct 2026',
-    html: 'Published the <a href="https://doi.org/10.5281/zenodo.23719561"><b>Robot Niko</b> technical report</a> with a DOI, with the team as co-authors.',
+    when: '28–29 Oct 2026',
+    html: 'Published the <a href="/robot-niko#report"><b>Robot Niko</b></a>, <a href="/envirobot#report"><b>EnviroBot</b></a> and <a href="/conveysort-arm#report"><b>ConveySort-Arm</b></a> technical reports with DOIs, with the teams as co-authors.',
   },
   {
     when: '27 Oct 2026',
@@ -269,6 +271,42 @@ export const reports: Report[] = [
   doi = {10.5281/zenodo.23719561}
 }`,
   },
+  {
+    kind: 'Technical report · v1.0 · Zenodo · Oct 2026',
+    title: 'EnviroBot: A Mobile Robotic Arm that Detects and Picks Up Waste — Design, YOLOv8 Waste Detection and Prototype',
+    authors: ['J. Nath', 'T. J. Toma', 'T. Akter'],
+    doi: '10.5281/zenodo.23739491',
+    researchGate: 'https://www.researchgate.net/publication/417065818',
+    figure: { src: enviroFigure, alt: 'The system overview figure from the EnviroBot report.', caption: 'From the EnviroBot report: the system overview' },
+    bibtex: `@techreport{nath2026envirobot,
+  author = {Nath, Jewel and Toma, Tasmiara Jahan and Akter, Tanjina},
+  title = {EnviroBot: A Mobile Robotic Arm that Detects and Picks Up Waste -- Design, YOLOv8 Waste Detection and Prototype},
+  institution = {Zenodo},
+  type = {Technical report},
+  number = {v1.0},
+  year = {2026},
+  month = oct,
+  doi = {10.5281/zenodo.23739491}
+}`,
+  },
+  {
+    kind: 'Technical report · v1.0 · Zenodo · Oct 2026',
+    title: 'ConveySort-Arm: A Low-Cost Vision-Guided Sorting Cell with a Conveyor Belt and a Six-Servo Arm — Design and Prototype',
+    authors: ['J. Nath', 'S. A. Chowdhury'],
+    doi: '10.5281/zenodo.23741975',
+    researchGate: 'https://www.researchgate.net/publication/417066215',
+    figure: { src: conveyFigure, alt: 'The system overview figure from the ConveySort-Arm report.', caption: 'From the ConveySort-Arm report: the system overview' },
+    bibtex: `@techreport{nath2026conveysort,
+  author = {Nath, Jewel and Chowdhury, Shafiul Alam},
+  title = {ConveySort-Arm: A Low-Cost Vision-Guided Sorting Cell with a Conveyor Belt and a Six-Servo Arm -- Design and Prototype},
+  institution = {Zenodo},
+  type = {Technical report},
+  number = {v1.0},
+  year = {2026},
+  month = oct,
+  doi = {10.5281/zenodo.23741975}
+}`,
+  },
 ];
 
 export const orcid = { id: '0009-0002-6609-6378', href: 'https://orcid.org/0009-0002-6609-6378' };
@@ -279,6 +317,7 @@ export interface VideoProject {
   years: string;
   text: string;
   tags: string[];
+  page: string;
   code: string;
   video: Video;
 }
@@ -290,24 +329,26 @@ export const videoProjects: VideoProject[] = [
     years: '2024',
     text: 'A six-servo arm and a conveyor belt that sort blocks by size. A webcam and OpenCV measure each block; an Arduino runs the belt and the arm.',
     tags: ['OpenCV', 'Arduino', 'Python'],
+    page: '/conveysort-arm',
     code: 'https://github.com/jewel-nath/conveysort-arm',
     video: {
-      src: '/media/projects/conveysort-arm-2024-11-16-camera-detection.mp4',
-      poster: '/media/projects/conveysort-arm-2024-11-16-camera-detection-poster.jpg',
-      label: 'ConveySort-Arm: the webcam detecting blocks on the conveyor',
+      src: '/media/conveysort-arm/conveysort-arm-2024-11-18-arm-camera-and-conveyor.mp4',
+      poster: '/media/conveysort-arm/conveysort-arm-2024-11-18-arm-camera-and-conveyor.jpg',
+      label: 'ConveySort-Arm: the webcam watches the belt, and the arm takes a block off it and sets it down',
     },
   },
   {
     name: 'EnviroBot',
     status: 'Built',
-    years: '2024',
-    text: 'Built at Comilla University with the team: a rover with a 6-DOF arm. Its camera tells paper, plastic and other waste apart with YOLOv8, and the arm picks it up.',
+    years: '2023 – 2024',
+    text: 'Built at Comilla University with the team: a rover with a six-servo arm. Its camera tells paper, plastic and other waste apart with YOLOv8, and the arm picks it up.',
     tags: ['YOLOv8', 'Python', 'Servo arm'],
+    page: '/envirobot',
     code: 'https://github.com/jewel-nath/envirobot',
     video: {
-      src: '/media/projects/envirobot-2024-01-11-trash-collecting.mp4',
-      poster: '/media/projects/envirobot-2024-01-11-trash-collecting-poster.jpg',
-      label: 'EnviroBot picking up waste',
+      src: '/media/envirobot/envirobot-2024-01-11-trash-collecting.mp4',
+      poster: '/media/envirobot/envirobot-2024-01-11-trash-collecting.jpg',
+      label: 'EnviroBot picking a cube up off the floor',
     },
   },
 ];

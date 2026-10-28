@@ -1,0 +1,39 @@
+---
+// Dated photos, oldest first, each opening large.
+import { Image } from 'astro:assets';
+import type { DatedPicture } from '../../data/project';
+
+interface Props {
+  photos: DatedPicture[];
+}
+
+const { photos } = Astro.props;
+---
+
+<ol class="timeline-grid">
+  {
+    photos.map((photo) => (
+      <li data-reveal>
+        <button class="tile" data-full={photo.src.src} data-cap={`${photo.when}: ${photo.caption}`}>
+          <Image src={photo.src} alt={photo.alt} width={480} densities={[1, 2]} />
+        </button>
+        <p class="when num">{photo.when}</p>
+        <p>{photo.caption}</p>
+      </li>
+    ))
+  }
+</ol>
+
+<style>
+  /* Two to a row on a phone, so the page stays short. */
+  @media (max-width: 520px) {
+    :global(.project) .timeline-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 18px 12px;
+    }
+
+    :global(.project) .timeline-grid p {
+      font-size: 13px;
+    }
+  }
+</style>

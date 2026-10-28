@@ -1,0 +1,66 @@
+---
+// The top of a project page: the title block, links to its sections, and "What it shows".
+import type { Fact, Intro } from '../../data/project';
+
+interface Props {
+  intro: Intro;
+  sections: { id: string; label: string }[];
+  shows: Fact[];
+}
+
+const { intro, sections, shows } = Astro.props;
+---
+
+<section class="intro" id="top" aria-labelledby="title">
+  <a class="back" href="/">← Home</a>
+  <h1 id="title">{intro.title}</h1>
+  <p class="intro__lead">{intro.lead}</p>
+  <p class="meta">
+    <span class="status">{intro.status}</span><span class="num">{intro.years}</span><span>My part: {intro.role}</span>
+  </p>
+  <nav class="jump" aria-label="On this page">
+    {sections.map((section) => <a href={`#${section.id}`}>{section.label}</a>)}
+  </nav>
+  <div class="shows" data-glow>
+    <p class="label">What it shows</p>
+    <dl>
+      {
+        shows.map((fact) => (
+          <div>
+            <dt>{fact.label}</dt>
+            <dd>{fact.value}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</section>
+
+<style>
+  .meta .status {
+    margin-right: 2px;
+  }
+
+  .jump {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 28px;
+  }
+
+  .jump a {
+    padding: 7px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+    font-size: 13.5px;
+    transition: border-color 0.15s;
+  }
+
+  .jump a:hover {
+    border-color: var(--accent-line);
+    color: var(--heading);
+    text-decoration: none;
+  }
+</style>

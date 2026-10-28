@@ -1,0 +1,97 @@
+---
+// My part and the team, with my name first, beside the work the project builds on.
+import type { Team } from '../../data/project';
+
+interface Props {
+  team: Team;
+}
+
+const { team } = Astro.props;
+---
+
+<div class="two-col">
+  <div class="card" data-glow data-reveal>
+    <p class="team__text">{team.text}</p>
+    <p class="label">The team</p>
+    <ul class="members">
+      {team.members.map((name, i) => <li class:list={{ me: i === 0 }}>{name}</li>)}
+    </ul>
+    {team.note && <p class="team__note">{team.note}</p>}
+  </div>
+  <div class="card credits" data-glow data-reveal>
+    <p class="label">Built on</p>
+    <dl>
+      {
+        team.credits.map((credit) => (
+          <div>
+            <dt>{credit.what}</dt>
+            <dd>
+              <a href={credit.href}>{credit.text}</a>
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
+    <p class="credits__note">{team.creditsNote}</p>
+  </div>
+</div>
+
+<style>
+  .team__text {
+    font-size: 15.5px;
+    margin-bottom: 18px;
+  }
+
+  .members {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 18px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .members li {
+    padding: 5px 12px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--heading);
+    font-size: 13.5px;
+  }
+
+  .members .me {
+    background: var(--accent);
+    color: var(--on-accent);
+    font-weight: 600;
+  }
+
+  .team__note {
+    font-size: 14.5px;
+    border-top: 1px solid var(--border);
+    padding-top: 14px;
+  }
+
+  .credits dl {
+    margin: 0 0 14px;
+  }
+
+  .credits dl div {
+    padding: 10px 0;
+    border-top: 1px solid var(--border);
+    font-size: 14.5px;
+  }
+
+  .credits dt {
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .credits dd {
+    margin: 2px 0 0;
+  }
+
+  .credits__note {
+    font-size: 13.5px;
+    color: var(--muted);
+  }
+</style>

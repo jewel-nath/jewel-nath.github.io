@@ -1,0 +1,62 @@
+---
+// A project's numbers, large, under the status word that says how they were found.
+import type { Results } from '../../data/project';
+
+interface Props {
+  results: Results;
+}
+
+const { results } = Astro.props;
+---
+
+<div class="results" data-reveal>
+  <p class="results__head"><span class="status">{results.kind}</span>{results.note}</p>
+  <dl class="num">
+    {
+      results.stats.map((stat) => (
+        <div class="card">
+          <dt>{stat.label}</dt>
+          <dd>{stat.value}</dd>
+        </div>
+      ))
+    }
+  </dl>
+</div>
+
+<style>
+  .results__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    color: var(--muted);
+    font-size: 14.5px;
+    margin-bottom: 16px;
+  }
+
+  dl {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin: 0;
+  }
+
+  dl div {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+    padding: 20px 22px;
+  }
+
+  dt {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.45;
+  }
+
+  dd {
+    margin: 0 0 4px;
+    font: 500 32px var(--display);
+    color: var(--accent);
+  }
+</style>

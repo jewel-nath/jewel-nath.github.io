@@ -1,0 +1,92 @@
+---
+import { Image } from 'astro:assets';
+import ClipGallery from '../components/ClipGallery.astro';
+import HowOverview from '../components/project/HowOverview.astro';
+import Lessons from '../components/project/Lessons.astro';
+import PhotoAndVideo from '../components/project/PhotoAndVideo.astro';
+import PhotoTimeline from '../components/project/PhotoTimeline.astro';
+import ProjectEnd from '../components/project/ProjectEnd.astro';
+import ProjectIntro from '../components/project/ProjectIntro.astro';
+import ResultStats from '../components/project/ResultStats.astro';
+import TeamCredits from '../components/project/TeamCredits.astro';
+import Topics from '../components/project/Topics.astro';
+import { build, clips, how, intro, lead, lessons, report, results, shows, team } from '../data/envirobot';
+import Base from '../layouts/Base.astro';
+import '../styles/project.css';
+
+const sections = [
+  { id: 'robot', label: 'The robot' },
+  { id: 'how', label: 'How it works' },
+  { id: 'team', label: 'The team' },
+  { id: 'report', label: 'The report' },
+];
+---
+
+<Base title="EnviroBot: a robot arm that finds waste and picks it up · Jewel Nath" description={intro.lead}>
+  <div class="project">
+    <ProjectIntro intro={intro} sections={sections} shows={shows} />
+
+    <section class="section" id="robot" aria-labelledby="robot-h">
+      <div class="sec-head" data-reveal>
+        <p class="label">Built · Sep 2023 – Jan 2024</p>
+        <h2 id="robot-h">A rover with an arm</h2>
+        <p>{lead.text}</p>
+      </div>
+      <PhotoAndVideo photo={lead.photo} video={lead.video} />
+
+      <h3 class="sub" data-reveal>In video</h3>
+      <p class="note" data-reveal>Short silent clips. Tap one to play it.</p>
+      <ClipGallery groups={clips} />
+
+      <h3 class="sub" data-reveal>The build</h3>
+      <PhotoTimeline photos={build.timeline} />
+      <figure class="year" data-reveal>
+        <button class="tile tile--paper" data-full={build.timelineFigure.src.src} data-cap={build.timelineFigure.caption}>
+          <Image src={build.timelineFigure.src} alt={build.timelineFigure.alt} width={960} densities={[1, 2]} />
+        </button>
+        <figcaption>{build.timelineFigure.caption}</figcaption>
+      </figure>
+    </section>
+
+    <section class="section" id="how" aria-labelledby="how-h">
+      <div class="sec-head" data-reveal>
+        <p class="label">How it works</p>
+        <h2 id="how-h">A camera, two boards and six servos</h2>
+        <p>{how.text}</p>
+      </div>
+      <HowOverview facts={how.facts} overview={how.overview} label="The whole robot" />
+
+      <h3 class="sub" data-reveal>How well it finds waste</h3>
+      <ResultStats results={results} />
+
+      <Topics topics={how.topics} />
+    </section>
+
+    <section class="section" id="team" aria-labelledby="team-h">
+      <div class="sec-head" data-reveal>
+        <p class="label">My part, and the team</p>
+        <h2 id="team-h">Built at Comilla University</h2>
+      </div>
+      <TeamCredits team={team} />
+      <Lessons lessons={lessons} />
+    </section>
+
+    <ProjectEnd
+      doi={report.doi}
+      about="14 pages and 12 diagrams, checked against the team's report, the circuit diagram, the repository and the dated photos and videos, with the team as co-authors."
+      code={{ href: report.code, label: "EnviroBot's ROS 2 model on GitHub" }}
+      next={{
+        title: 'ConveySort-Arm',
+        text: 'A conveyor belt and a six-servo arm that sort blocks by size, built at RoboAI in 2024, with the same arm model.',
+        href: '/conveysort-arm',
+        label: 'See ConveySort-Arm',
+      }}
+    />
+  </div>
+</Base>
+
+<style>
+  .year {
+    margin-top: 28px;
+  }
+</style>

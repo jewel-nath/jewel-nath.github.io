@@ -1,9 +1,10 @@
 ---
-// Groups of short silent clips: upright phone videos in phone frames, screen recordings wide.
+// Groups of short silent clips: upright phone videos in phone frames, wide ones in a frame of
+// the group's ratio (the dashboard recordings' 960 / 474 unless a group says otherwise).
 import type { Clip } from '../data/site';
 
 interface Props {
-  groups: { title: string; upright: boolean; items: Clip[] }[];
+  groups: { title: string; upright: boolean; ratio?: string; items: Clip[] }[];
 }
 
 const { groups } = Astro.props;
@@ -17,7 +18,7 @@ const { groups } = Astro.props;
         <ul class:list={['clips__grid', { 'clips__grid--wide': !group.upright }]}>
           {group.items.map((item) => (
             <li data-reveal data-hover-play>
-              <div class:list={['clip', { 'clip--wide': !group.upright }]}>
+              <div class:list={['clip', { 'clip--wide': !group.upright }]} style={group.ratio && `aspect-ratio: ${group.ratio}`}>
                 <video muted loop playsinline preload="none" poster={item.poster} aria-label={item.label}>
                   <source src={item.src} type="video/mp4" />
                 </video>

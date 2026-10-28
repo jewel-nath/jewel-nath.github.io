@@ -1,0 +1,21 @@
+---
+import type { Lesson } from '../../data/project';
+
+interface Props {
+  lessons: Lesson[];
+}
+
+const { lessons } = Astro.props;
+---
+
+<h3 class="sub" data-reveal>What I learned</h3>
+<div class="lessons">
+  {
+    lessons.map((lesson) => (
+      <article class="card lesson" data-glow data-reveal>
+        <h4>{lesson.title}</h4>
+        <p>{lesson.text}</p>
+      </article>
+    ))
+  }
+</div>

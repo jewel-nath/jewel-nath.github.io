@@ -62,8 +62,14 @@ export const site = {
   // The short tagline, standing alone.
   description: 'Software engineer at Orbitax. I also build AI agents and automation, and love bringing AI into robotics.',
   headline: ['Software Engineer', 'AI Agents & Automation', 'Robotics'],
-  // The short tagline, next to the headline.
-  lead: { before: 'Software engineer. I also build ', ai: 'AI agents and automation', middle: ', and love ', robots: 'bringing AI into robotics', after: '.' },
+  // The intro under the headline.
+  lead: {
+    before: 'At Orbitax, I build .NET backend services for an international tax compliance platform. I also build ',
+    ai: 'AI agents',
+    middle: ' for smart solutions, and ',
+    robots: 'bring AI into robots',
+    after: '. I like to see my code work on a physical robot.',
+  },
   location: 'Dhaka, Bangladesh',
   portrait: { src: portrait, alt: 'Jewel Nath' } satisfies Picture,
   source: 'https://github.com/jewel-nath/jewel-nath.github.io',

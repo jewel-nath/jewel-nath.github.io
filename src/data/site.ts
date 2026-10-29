@@ -1,5 +1,5 @@
 // Every word on the home page lives here, so the page and its parts only lay it out.
-// Written from the hub's profile/identity.md and its projects/ files.
+// Written from the hub's profile/identity.md ("Words to use everywhere") and its projects/ files.
 import type { ImageMetadata } from 'astro';
 import portrait from '../assets/home/portrait.jpg';
 import nikoFitting from '../assets/home/robot-niko-2022-11-24-jewel-fitting-arm.jpg';
@@ -59,10 +59,11 @@ export const site = {
   name: 'Jewel Nath',
   url: 'https://jewelnath.dev',
   title: 'Jewel Nath: AI agents, automation and robots',
-  description:
-    'I build AI agents and automation for real products, and put them on robots I build myself. Software engineer at Orbitax, founder and technical advisor of RoboAI, builder of OrbiBot.',
+  // The short tagline, standing alone.
+  description: 'Software engineer at Orbitax. I also build AI agents and automation, and love bringing AI into robotics.',
   headline: ['Software Engineer', 'AI Agents & Automation', 'Robotics'],
-  lead: { before: 'I build ', ai: 'AI agents and automation', middle: ' for real products, and put them on ', robots: 'robots I build myself', after: '.' },
+  // The short tagline, next to the headline.
+  lead: { before: 'Software engineer. I also build ', ai: 'AI agents and automation', middle: ', and love ', robots: 'bringing AI into robotics', after: '.' },
   location: 'Dhaka, Bangladesh',
   portrait: { src: portrait, alt: 'Jewel Nath' } satisfies Picture,
   source: 'https://github.com/jewel-nath/jewel-nath.github.io',
@@ -74,16 +75,19 @@ export const cv = {
   fileName: 'Jewel-Nath-CV.pdf',
 };
 
+// In the agreed order, leaving out the site itself.
 export const profiles: Link[] = [
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/jewelnath/', icon: 'in' },
   { label: 'GitHub', href: 'https://github.com/jewel-nath', icon: 'gh' },
-  { label: 'ORCID', href: 'https://orcid.org/0009-0002-6609-6378', icon: 'orcid' },
-  { label: 'ResearchGate', href: 'https://www.researchgate.net/profile/Jewel-Nath-2', icon: 'rg' },
   { label: 'YouTube', href: 'https://www.youtube.com/@jewelnathdev', icon: 'yt' },
   { label: 'X', href: 'https://x.com/jewelnathdev', icon: 'x' },
+  { label: 'ORCID', href: 'https://orcid.org/0009-0002-6609-6378', icon: 'orcid' },
+  { label: 'Google Scholar', href: 'https://scholar.google.com/citations?user=kmQQHAQAAAAJ', icon: 'cap' },
+  { label: 'ResearchGate', href: 'https://www.researchgate.net/profile/Jewel-Nath-2', icon: 'rg' },
 ];
 
-export const interests = ['AI agents', 'MCP servers', 'LLM tool use', 'ROS 2 & Nav2', 'Embedded control', 'Humanoid robots'];
+// Focus 10, AI first.
+export const interests = ['AI Agents', 'MCP', 'RAG', 'Claude Code', 'Python', 'C# / .NET', 'TypeScript', 'Next.js', 'ROS 2', 'STM32 Firmware'];
 
 export interface Update {
   when: string;
@@ -127,7 +131,8 @@ export const orbibotFeature = {
     name: 'OrbiBot V1',
     status: 'Built and driven',
     years: '2025 – 2026',
-    lead: 'A mecanum robot I welded, wired and programmed. It mapped with LiDAR, navigated with Nav2, and gave large language models 58 tools to work with it, also through an MCP server.',
+    context: 'Orbitax, in my free time',
+    lead: 'A mecanum robot I welded, wired and programmed. It mapped rooms with LiDAR, drove itself with Nav2 and took commands from an AI agent.',
     part: {
       label: 'My part',
       text: 'all of it: the frame, the electronics, new firmware for the STM32 motor board, the ROS 2 stack, the web dashboard and the agent.',
@@ -172,7 +177,7 @@ export const nikoFeature = {
     status: 'Built',
     years: '2022',
     context: 'Quanta Robotics',
-    lead: 'A life-size, 3D-printed humanoid assistant in the InMoov style, on a Raspberry Pi. It wakes to "Hey Niko", holds a conversation, greets the people it knows with a handshake, and turns its head to follow the face it sees.',
+    lead: 'A life-size, 3D-printed humanoid assistant that talks, greets the people it knows with a handshake, and follows faces with its head.',
     part: {
       label: 'My part',
       text: 'the programming, the 3D printing, the assembly, the servo tuning and the arm motions, with the team at Quanta Robotics.',
@@ -208,7 +213,7 @@ export const teamOsFeature = {
     status: 'Live',
     years: '2026',
     context: 'RoboAI',
-    lead: 'One app where a small company runs its projects, tasks, people, time and expenses, and asks AI to do the work: its own assistant, or ChatGPT or Claude through an MCP server.',
+    lead: "One app where a small team runs its projects, tasks, people, time and expenses, and asks AI to do the work, with a person's approval for anything risky.",
     part: {
       label: 'The safety design',
       text: "every AI action runs under the user's own permissions; risky tools ask first, and money moves only with a person's approval.",
@@ -326,8 +331,8 @@ export const videoProjects: VideoProject[] = [
   {
     name: 'ConveySort-Arm',
     status: 'Built and run',
-    years: '2024',
-    text: 'A six-servo arm and a conveyor belt that sort blocks by size. A webcam and OpenCV measure each block; an Arduino runs the belt and the arm.',
+    years: '2024 · RoboAI',
+    text: 'A conveyor belt and a six-servo arm that sort blocks by size, with a webcam and OpenCV.',
     tags: ['OpenCV', 'Arduino', 'Python'],
     page: '/conveysort-arm',
     code: 'https://github.com/jewel-nath/conveysort-arm',
@@ -340,8 +345,8 @@ export const videoProjects: VideoProject[] = [
   {
     name: 'EnviroBot',
     status: 'Built',
-    years: '2023 – 2024',
-    text: 'Built at Comilla University with the team: a rover with a six-servo arm. Its camera tells paper, plastic and other waste apart with YOLOv8, and the arm picks it up.',
+    years: '2023 – 2024 · with my team',
+    text: 'A rover with a robot arm that tells paper, plastic and other waste apart with YOLOv8, and picks it up.',
     tags: ['YOLOv8', 'Python', 'Servo arm'],
     page: '/envirobot',
     code: 'https://github.com/jewel-nath/envirobot',
@@ -366,8 +371,8 @@ export const smallProjects: SmallProject[] = [
   {
     name: "RoboAI Shop's parts planner",
     status: 'Live',
-    years: '2026',
-    text: "A student describes the robot they want to build; the AI lists parts from the shop's catalogue, and the server adds up the total from the database.",
+    years: '2026 · RoboAI',
+    text: "Describe the robot you want to build, and AI lists the parts from the shop's stock; the server, not the AI, adds up the price.",
     icon: 'cart',
     link: { label: 'shop.roboai.one', href: 'https://shop.roboai.one' },
   },
@@ -375,7 +380,7 @@ export const smallProjects: SmallProject[] = [
     name: 'Agentic robotics skills',
     status: 'Written',
     years: '2026',
-    text: '29 skills that teach AI coding assistants to work on robots: ROS 2, Nav2, MoveIt 2, simulation and embedded code. Written by me, with material adapted from two Apache-2.0 projects, credited in the repo.',
+    text: '29 skills that teach AI coding assistants to work on robots: ROS 2, Nav2, MoveIt 2, simulation and embedded code. Parts are adapted from two Apache-2.0 projects, credited in the repo.',
     icon: 'book',
     link: { label: 'Code on GitHub', href: 'https://github.com/jewel-nath/agentic-robotics' },
   },
@@ -390,8 +395,8 @@ export const smallProjects: SmallProject[] = [
   {
     name: 'Line follower',
     status: 'Built',
-    years: '2023',
-    text: 'An Arduino line follower with PID steering and an eight-sensor array. Runner-up at EEE Day 2023, BAIUST.',
+    years: '2023 · team CoU Bots',
+    text: 'An Arduino line follower with PID steering. Runner-up at EEE Day 2023, BAIUST.',
     icon: 'trophy',
     link: { label: 'Code on GitHub', href: 'https://github.com/jewel-nath/line-follower-robot' },
   },
@@ -411,26 +416,25 @@ export const roles: Role[] = [
     title: 'Software Engineer',
     when: 'Aug 2026 – present',
     earlier: 'Associate Software Engineer, May 2024 – Jul 2026',
-    text: 'Backend services in .NET for an international tax compliance platform.',
+    text: 'Backend services in .NET, reliable background workflows and Angular features for an international tax compliance platform used by multinational companies.',
   },
   {
     place: 'RoboAI',
     title: 'Founder & Technical Advisor',
     when: 'Oct 2023 – present',
-    earlier: 'Technical Advisor since Aug 2026; Robotics & AI Automation Engineer, part time, May 2024 – Jul 2026; Founder & CEO, Oct 2023 – Apr 2024',
-    text: 'The AI and robotics startup I founded, now run by my juniors: it builds its own AI products, and offers AI agents, automation and MCP connections to businesses.',
+    text: "The AI startup I founded, now run by my juniors, whom I advise. I built its AI products: a team workspace where AI handles the tasks, and a shop where AI plans a robot's parts.",
   },
   {
     place: 'School of Robotics, Cumilla',
-    title: 'Programming & Robotics Trainer',
+    title: 'Programming & Robotics Trainer, part time',
     when: 'Mar 2021 – Mar 2024',
-    text: 'Workshops in 10 upazilas, at 30 schools and colleges, and training for the National High School Programming Contest.',
+    text: 'Taught robotics and programming at 30 schools and colleges in 10 upazilas, in workshops with the Cumilla DC Office, and trained students for the National High School Programming Contest.',
   },
   {
     place: 'Quanta Robotics',
     title: 'Co-Founder & Robotics Programmer',
-    when: 'Jan 2020 – Dec 2023',
-    text: 'Robot Niko, a life-size 3D-printed humanoid, where I worked on every part.',
+    when: 'May 2019 – Dec 2023',
+    text: 'Co-founded the robotics team that built Robot Niko, a life-size 3D-printed humanoid assistant. I worked on every part: its programming, 3D printing, assembly and arm motions.',
   },
 ];
 
@@ -440,7 +444,20 @@ export const education = {
   when: '2019 – 2024',
 };
 
-export const awards = [
+export interface Award {
+  title: string;
+  detail: string;
+  when: string;
+  href?: string;
+}
+
+export const awards: Award[] = [
+  {
+    title: 'Codeforces Specialist (max rating 1509)',
+    detail: '1,200+ problems solved, as CodeCell',
+    when: 'Jan 2021',
+    href: 'https://codeforces.com/profile/CodeCell',
+  },
   {
     title: 'Runner-up, Line Follower Robot contest',
     detail: 'EEE Day 2023, BAIUST, with team CoU Bots',
@@ -451,27 +468,24 @@ export const awards = [
 export interface Skill {
   area: string;
   skills: string;
-  shownIn: string;
-  href?: string;
+  shownIn?: string;
 }
 
+// The nine groups, as agreed; "shown in" names the work that proves each, where one does.
 export const skills: Skill[] = [
-  { area: 'AI agents and MCP', skills: 'MCP servers with their own OAuth 2.1, LLM tool calling, agents that run on several models', shownIn: "Team OS, OrbiBot's agent" },
-  { area: 'AI safety', skills: "Human approval for money actions, confirmations the model can't skip, every AI action under the user's own permissions", shownIn: 'Team OS' },
-  { area: 'LLM engineering', skills: 'Structured output against a schema, grounding in a database, server-side checks, model rotation, prompt fixes checked before and after on the same input', shownIn: "RoboAI Shop's parts planner" },
-  { area: 'RAG', skills: 'Textbook transcription, chunking, pgvector embeddings, answers that cite the page', shownIn: "aiTutor's physics questions and answers, over a 366-page textbook" },
-  { area: 'AI-assisted development', skills: 'Claude Code with skills, subagents and headless runs; AI review agents', shownIn: "RoboAI's repositories" },
-  { area: 'Backend', skills: 'C#, .NET 10, ASP.NET Core, CQRS, message-driven sagas, MongoDB, NUnit', shownIn: 'Orbitax' },
-  { area: 'Web', skills: 'TypeScript, Next.js, React, Angular, Supabase with row-level security, Tailwind', shownIn: "Team OS, RoboAI Shop, OrbiBot's dashboard, Orbitax" },
-  { area: 'Robotics', skills: 'ROS 2 Jazzy, Nav2, slam_toolbox, robot_localization, URDF, RViz', shownIn: 'OrbiBot' },
-  { area: 'Embedded and electronics', skills: 'STM32 firmware, PID control, ESP32, Arduino, Raspberry Pi, KiCad', shownIn: "OrbiBot V1's firmware, the earlier robots" },
-  { area: 'Computer vision', skills: 'OpenCV, MediaPipe, PyTorch, YOLOv8', shownIn: 'Robot Niko, EnviroBot, sign-language detection' },
-  { area: 'Mechanical', skills: 'Welding, 3D printing and assembly, CAD in FreeCAD', shownIn: "OrbiBot V1's frame, Robot Niko, OrbiBot V2" },
-  { area: 'Problem solving', skills: 'Best rank Specialist on Codeforces (max rating 1509), more than 1,250 problems solved', shownIn: 'Codeforces', href: 'https://codeforces.com/profile/CodeCell' },
+  { area: 'Languages', skills: 'C#, Python, TypeScript, JavaScript, C++', shownIn: 'Orbitax, OrbiBot, Team OS, the earlier robots' },
+  { area: 'AI engineering', skills: 'AI agents, MCP servers, LLM tool calling, RAG, structured outputs, Ollama, LiteLLM', shownIn: "Team OS, OrbiBot's agent, RoboAI Shop's planner, aiTutor" },
+  { area: 'AI dev tools', skills: 'Claude Code (skills, subagents, rules), Codex, Cursor, AI code review, spec-driven development', shownIn: "RoboAI's repositories, this site" },
+  { area: 'Backend & data', skills: '.NET 10, ASP.NET Core, CQRS, background workflows, Node.js, MongoDB, PostgreSQL, Supabase', shownIn: 'Orbitax, Team OS, RoboAI Shop' },
+  { area: 'Frontend', skills: 'Angular, Next.js, Tailwind', shownIn: 'Orbitax, Team OS, RoboAI Shop' },
+  { area: 'Robotics & vision', skills: 'ROS 2 Jazzy, Nav2, SLAM, robot_localization, MoveIt, URDF, RViz, Gazebo, MuJoCo; OpenCV, YOLOv8, MediaPipe, PyTorch', shownIn: 'OrbiBot, Robot Niko, EnviroBot, ConveySort-Arm, Sign Language Detection' },
+  { area: 'Embedded & hardware', skills: 'STM32 firmware, PID control, ESP32, Arduino, Raspberry Pi, KiCad, FreeCAD (Python-scripted), 3D printing', shownIn: "OrbiBot's firmware, CAD and board, Robot Niko, the earlier robots" },
+  { area: 'Testing', skills: 'Playwright, NUnit, pytest, Vitest', shownIn: 'Team OS, Orbitax' },
+  { area: 'DevOps & infra', skills: 'Git, Linux, Docker, Vercel, Cloudflare R2, systemd services on Raspberry Pi', shownIn: "Team OS, this site, Robot Niko's start-up service" },
 ];
 
 export const buildLog = {
-  text: "I post OrbiBot's build log on YouTube, LinkedIn and X, one step of the build at a time. The finished Robot Niko has a playlist of its own.",
+  text: "I post OrbiBot's build log on YouTube, LinkedIn and X, one step of the build at a time.",
   links: [
     { label: 'Playlists on YouTube', href: 'https://www.youtube.com/@jewelnathdev/playlists', icon: 'yt' },
     { label: 'LinkedIn', href: 'https://www.linkedin.com/in/jewelnath/', icon: 'in' },

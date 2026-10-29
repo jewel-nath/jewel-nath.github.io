@@ -1,6 +1,6 @@
 // Every word and picture on /envirobot, written from the hub's projects/envirobot.md, its media
 // index and the EnviroBot report (v1.0). EnviroBot is "built": it detects, labels and picks up
-// waste. It does not sort into separate bins or collect on its own. Not called a final-year project.
+// waste. It does not sort into separate bins or collect on its own.
 import appControl from '../assets/envirobot/envirobot-app-control.png';
 import armChain from '../assets/envirobot/envirobot-arm-chain.png';
 import armModelRviz from '../assets/envirobot/envirobot-2023-09-14-arm-model-rviz.jpg';

@@ -15,9 +15,7 @@ const { skills } = Astro.props;
         <dt>{skill.area}</dt>
         <dd>
           {skill.skills}
-          <span class="skills__shown">
-            Shown in: {skill.href ? <a href={skill.href}>{skill.shownIn}</a> : skill.shownIn}
-          </span>
+          {skill.shownIn && <span class="skills__shown">Shown in: {skill.shownIn}</span>}
         </dd>
       </div>
     ))

@@ -245,7 +245,7 @@ const [orbiFront, orbiSide] = orbibotFeature.photos;
           </div>
         </div>
         <div class="side-card" data-glow data-reveal>
-          <p class="label">Awards</p>
+          <p class="label">Awards and contests</p>
           {
             awards.map((award) => (
               <div class="award">
@@ -256,7 +256,7 @@ const [orbiFront, orbiSide] = orbibotFeature.photos;
                 </span>
                 <div>
                   <p class="when num">{award.when}</p>
-                  <h3>{award.title}</h3>
+                  <h3>{award.href ? <a href={award.href}>{award.title}</a> : award.title}</h3>
                   <p>{award.detail}</p>
                 </div>
               </div>

@@ -1,6 +1,7 @@
 // Every word and picture on /orbibot, written from the hub's projects/orbibot.md, its showcase
 // pages and the V1 report. Status words are the project's own. V1 is the Raspberry Pi 5 robot:
-// the mini PC starts with V2. V3 waits for Orbitax's OK, and V4 is never shown.
+// the mini PC starts with V2. OrbiBot is built at Orbitax in my free time. V3, Orbitax's office
+// telepresence robot, is named but has no section yet; V4 is never shown.
 import firstBuild from '../assets/orbibot/v1/v1-2025-06-13-first-build-blue-underglow.jpg';
 import frameTop from '../assets/orbibot/v1/v1-2025-06-12-frame-top-view-rplidar.jpg';
 import frameWelding from '../assets/orbibot/v1/v1-2025-06-11-frame-welding-still.jpg';
@@ -75,7 +76,9 @@ export const versions = [
 
 export const intro = {
   title: 'OrbiBot',
-  lead: 'My own robot, beside my job. V1 is the one I built: I welded its frame, wired it, wrote its firmware and its ROS 2 software, and gave it an AI agent. V2 was designed in CAD and then parked.',
+  lead: "At Orbitax, I build OrbiBot in my free time, on the way to a telepresence robot for the office. V1 is the one I built: I welded its frame, wired it, wrote its firmware and its ROS 2 software, and gave it an AI agent. V2 was designed in CAD and then parked. V3, Orbitax's office telepresence robot, is designed and simulated.",
+  // For search results and link previews: short enough not to be cut.
+  description: 'A mecanum robot I welded, wired and programmed: LiDAR mapping, Nav2 navigation and an AI agent. At Orbitax, I build OrbiBot in my free time.',
   role: 'everything, from the welding and wiring to the firmware, ROS 2, the dashboard and the agent',
   years: '2025 to now',
 };

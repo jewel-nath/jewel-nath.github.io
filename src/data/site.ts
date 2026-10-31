@@ -428,6 +428,7 @@ export const roles: Role[] = [
     place: 'RoboAI',
     title: 'Founder & Technical Advisor',
     when: 'Oct 2023 – present',
+    earlier: 'Founder & CEO, full time, Oct 2023 – Apr 2024 · Robotics & AI Automation Engineer, part time, May 2024 – Jul 2026 · Technical Advisor, Aug 2026 – present',
     text: "The AI startup I founded, now run by my juniors, whom I advise. I built its AI products: a team workspace where AI handles the tasks, and a shop where AI plans a robot's parts.",
   },
   {

@@ -254,8 +254,8 @@ export const v2 = {
 };
 
 export const report = {
-  doi: '10.5281/zenodo.23696694',
-  href: 'https://doi.org/10.5281/zenodo.23696694',
+  doi: '10.5281/zenodo.23752389',
+  href: 'https://doi.org/10.5281/zenodo.23752389',
   researchGate: 'https://www.researchgate.net/publication/416980928',
   code: 'https://github.com/jewel-nath/orbibot-v1',
 };

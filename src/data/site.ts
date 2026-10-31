@@ -108,7 +108,7 @@ export const latest: Update[] = [
   },
   {
     when: '27 Oct 2026',
-    html: 'Published the <a href="https://doi.org/10.5281/zenodo.23696694"><b>OrbiBot V1</b> technical report</a> on Zenodo, ORCID and ResearchGate.',
+    html: 'Published the <a href="https://doi.org/10.5281/zenodo.23752389"><b>OrbiBot V1</b> technical report</a> on Zenodo, ORCID and ResearchGate.',
   },
   { when: '19 Sep 2026', html: "<b>RoboAI Shop's</b> AI parts planner went live." },
   {
@@ -151,7 +151,7 @@ export const orbibotFeature = {
     tags: ['ROS 2 Jazzy', 'Nav2', 'slam_toolbox', 'STM32', 'FreeRTOS', 'MCP', 'React'],
     links: [
       { label: 'Project page', href: '/orbibot', icon: 'arrow', primary: true },
-      { label: 'Report · DOI', href: 'https://doi.org/10.5281/zenodo.23696694', icon: 'doc' },
+      { label: 'Report · DOI', href: 'https://doi.org/10.5281/zenodo.23752389', icon: 'doc' },
       { label: 'Code', href: 'https://github.com/jewel-nath/orbibot-v1', icon: 'code' },
       { label: '13 videos', href: '/orbibot#v1-videos', icon: 'play' },
     ],
@@ -246,11 +246,11 @@ export interface Report {
 
 export const reports: Report[] = [
   {
-    kind: 'Technical report · v1.0 · Zenodo · Oct 2026',
+    kind: 'Technical report · v1.1 · Zenodo · Oct 2026',
     title:
       'OrbiBot V1: A Mecanum Mobile Robot with Microcontroller-Level Real-Time Control, a ROS 2 Navigation Stack, and a Tool-Using LLM Agent — Design and Bench Evaluation',
     authors: ['J. Nath'],
-    doi: '10.5281/zenodo.23696694',
+    doi: '10.5281/zenodo.23752389',
     researchGate: 'https://www.researchgate.net/publication/416980928',
     figure: { src: orbiFigure, alt: 'The system architecture figure from the OrbiBot V1 report.', caption: 'From the OrbiBot V1 report: the system architecture' },
     bibtex: `@techreport{nath2026orbibot,
@@ -258,10 +258,10 @@ export const reports: Report[] = [
   title = {OrbiBot V1: A Mecanum Mobile Robot with Microcontroller-Level Real-Time Control, a ROS 2 Navigation Stack, and a Tool-Using LLM Agent -- Design and Bench Evaluation},
   institution = {Zenodo},
   type = {Technical report},
-  number = {v1.0},
+  number = {v1.1},
   year = {2026},
   month = oct,
-  doi = {10.5281/zenodo.23696694}
+  doi = {10.5281/zenodo.23752389}
 }`,
   },
   {
@@ -478,14 +478,15 @@ export interface Skill {
 }
 
 // The nine groups, as agreed; "shown in" names the work that proves each, where one does.
+// The home page shows the first six and folds the rest: Embedded stays visible, Testing and DevOps fold.
 export const skills: Skill[] = [
   { area: 'Languages', skills: 'C#, Python, TypeScript, JavaScript, C++', shownIn: 'Orbitax, OrbiBot, Team OS, the earlier robots' },
   { area: 'AI engineering', skills: 'AI agents, MCP servers, LLM tool calling, RAG, structured outputs, Ollama, LiteLLM', shownIn: "Team OS, OrbiBot's agent, RoboAI Shop's planner, aiTutor" },
   { area: 'AI dev tools', skills: 'Claude Code (skills, subagents, rules), Codex, Cursor, AI code review, spec-driven development', shownIn: "RoboAI's repositories, this site" },
   { area: 'Backend & data', skills: '.NET 10, ASP.NET Core, CQRS, background workflows, Node.js, MongoDB, PostgreSQL, Supabase', shownIn: 'Orbitax, Team OS, RoboAI Shop' },
-  { area: 'Frontend', skills: 'Angular, Next.js, Tailwind', shownIn: 'Orbitax, Team OS, RoboAI Shop' },
-  { area: 'Robotics & vision', skills: 'ROS 2 Jazzy, Nav2, SLAM, robot_localization, MoveIt, URDF, RViz, Gazebo, MuJoCo; OpenCV, YOLOv8, MediaPipe, PyTorch', shownIn: 'OrbiBot, Robot Niko, EnviroBot, ConveySort-Arm, Sign Language Detection' },
   { area: 'Embedded & hardware', skills: 'STM32 firmware, PID control, ESP32, Arduino, Raspberry Pi, KiCad, FreeCAD (Python-scripted), 3D printing', shownIn: "OrbiBot's firmware, CAD and board, Robot Niko, the earlier robots" },
+  { area: 'Robotics & vision', skills: 'ROS 2 Jazzy, Nav2, SLAM, robot_localization, MoveIt, URDF, RViz, Gazebo, MuJoCo; OpenCV, YOLOv8, MediaPipe, PyTorch', shownIn: 'OrbiBot, Robot Niko, EnviroBot, ConveySort-Arm, Sign Language Detection' },
+  { area: 'Frontend', skills: 'Angular, Next.js, Tailwind', shownIn: 'Orbitax, Team OS, RoboAI Shop' },
   { area: 'Testing', skills: 'Playwright, NUnit, pytest, Vitest', shownIn: 'Team OS, Orbitax' },
   { area: 'DevOps & infra', skills: 'Git, Linux, Docker, Vercel, Cloudflare R2, systemd services on Raspberry Pi', shownIn: "Team OS, this site, Robot Niko's start-up service" },
 ];

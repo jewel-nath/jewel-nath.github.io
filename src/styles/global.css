@@ -45,7 +45,7 @@
 :root {
   --display: 'Newsreader Variable', Georgia, serif;
   --sans: 'Inter Variable', system-ui, sans-serif;
-  --brand: 'Geist Variable', 'Inter Variable', sans-serif;
+  --brand: 'Inter Variable', sans-serif;
 }
 
 *,

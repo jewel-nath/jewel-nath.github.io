@@ -1,0 +1,90 @@
+---
+import ClipGallery from '../components/ClipGallery.astro';
+import PhotoAndVideo from '../components/project/PhotoAndVideo.astro';
+import PhotoTimeline from '../components/project/PhotoTimeline.astro';
+import ProjectEnd from '../components/project/ProjectEnd.astro';
+import ProjectIntro from '../components/project/ProjectIntro.astro';
+import TeamCredits from '../components/project/TeamCredits.astro';
+import { build, clips, code, how, intro, lead, shows, team } from '../data/pi-car';
+import Base from '../layouts/Base.astro';
+import '../styles/project.css';
+
+const sections = [
+  { id: 'car', label: 'The car' },
+  { id: 'how', label: 'How it works' },
+  { id: 'part', label: 'My part' },
+  { id: 'code', label: 'The code' },
+];
+
+// The datasheet and the driving modes, side by side.
+const cards = [
+  { label: 'Datasheet', facts: how.facts },
+  { label: 'Driving modes', facts: how.modes },
+];
+---
+
+<Base title="Pi Car: a Raspberry Pi robot car with several driving modes · Jewel Nath" description={intro.lead}>
+  <div class="project">
+    <ProjectIntro intro={intro} sections={sections} shows={shows} />
+
+    <section class="section" id="car" aria-labelledby="car-h">
+      <div class="sec-head" data-reveal>
+        <p class="label">Built · Apr – Jun 2022</p>
+        <h2 id="car-h">A Raspberry Pi on wheels</h2>
+        <p>{lead.text}</p>
+      </div>
+      <PhotoAndVideo photo={lead.photo} video={lead.video} />
+
+      <h3 class="sub" data-reveal>In video</h3>
+      <p class="note" data-reveal>Short silent clips. Tap one to play it.</p>
+      <ClipGallery groups={clips} />
+
+      <h3 class="sub" data-reveal>The build</h3>
+      <PhotoTimeline photos={build.timeline} />
+    </section>
+
+    <section class="section" id="how" aria-labelledby="how-h">
+      <div class="sec-head" data-reveal>
+        <p class="label">How it works</p>
+        <h2 id="how-h">One Pi, a program per mode</h2>
+        <p>{how.text}</p>
+      </div>
+      <div class="two-col">
+        {
+          cards.map((card) => (
+            <div class="datasheet card" data-glow data-reveal>
+              <p class="label">{card.label}</p>
+              <dl>
+                {card.facts.map((fact) => (
+                  <div>
+                    <dt>{fact.label}</dt>
+                    <dd>{fact.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="section" id="part" aria-labelledby="part-h">
+      <div class="sec-head" data-reveal>
+        <p class="label">My part</p>
+        <h2 id="part-h">Built alone, at Comilla University</h2>
+      </div>
+      <TeamCredits team={team} />
+    </section>
+
+    <ProjectEnd
+      about={code.about}
+      code={{ href: code.href, label: code.label }}
+      next={{
+        title: 'OrbiBot',
+        text: 'At Orbitax, I build OrbiBot in my free time. V1 was a mecanum robot with my own firmware, ROS 2 navigation and an AI agent.',
+        href: '/orbibot',
+        label: 'See OrbiBot',
+      }}
+    />
+  </div>
+</Base>

@@ -396,7 +396,7 @@ export const smallProjects: SmallProject[] = [
     years: '2022 – 2023',
     text: 'A Raspberry Pi car that follows lines, avoids obstacles, and drives by keyboard, phone or live video.',
     icon: 'car',
-    link: { label: 'Code on GitHub', href: 'https://github.com/jewel-nath/pi-car' },
+    link: { label: 'Project page', href: '/pi-car' },
   },
   {
     name: 'Line follower',

@@ -36,7 +36,7 @@ export interface Credit {
 
 export interface Team {
   text: string;
-  // In the report's author order, with me first.
+  // In the report's author order, with me first. Empty for a project I built alone.
   members: string[];
   note?: string;
   credits: Credit[];

@@ -12,10 +12,18 @@ const { team } = Astro.props;
 <div class="two-col">
   <div class="card" data-glow data-reveal>
     <p class="team__text">{team.text}</p>
-    <p class="label">The team</p>
-    <ul class="members">
-      {team.members.map((name, i) => <li class:list={{ me: i === 0 }}>{name}</li>)}
-    </ul>
+    {
+      team.members.length > 0 && (
+        <>
+          <p class="label">The team</p>
+          <ul class="members">
+            {team.members.map((name, i) => (
+              <li class:list={{ me: i === 0 }}>{name}</li>
+            ))}
+          </ul>
+        </>
+      )
+    }
     {team.note && <p class="team__note">{team.note}</p>}
   </div>
   <div class="card credits" data-glow data-reveal>
